@@ -270,6 +270,7 @@ export default function LoginPage() {
                         <input
                           id="district-search"
                           type="text"
+                          suppressHydrationWarning
                           className="w-full h-full pl-8 pr-8 bg-transparent outline-none text-body-lg font-medium placeholder:text-outline"
                           placeholder="Search district..."
                           value={districtSearch}
@@ -327,6 +328,7 @@ export default function LoginPage() {
                       <input
                         type="tel"
                         maxLength={10}
+                        suppressHydrationWarning
                         className={`w-full h-12 pl-10 pr-4 bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all duration-200 text-body-lg font-medium ${!canProceed ? 'opacity-50 cursor-not-allowed' : ''}`}
                         placeholder="Enter 10-digit number"
                         value={mobile}
@@ -359,6 +361,7 @@ export default function LoginPage() {
                       </div>
                       <input
                         type="text"
+                        suppressHydrationWarning
                         className="w-full h-12 px-4 bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all duration-200 text-body-md font-medium placeholder-outline"
                         placeholder="Enter characters exactly as shown"
                         value={captchaAnswer}
@@ -371,6 +374,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     id="btn-request-otp"
+                    suppressHydrationWarning
                     className="w-full h-12 flex items-center justify-center gap-2 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 active:scale-[0.99] transition-all duration-150 cursor-pointer shadow-sm mt-6 disabled:opacity-40 disabled:cursor-not-allowed"
                     disabled={loading || !canProceed}
                   >
@@ -403,6 +407,7 @@ export default function LoginPage() {
                     <input
                       type="text"
                       maxLength={6}
+                      suppressHydrationWarning
                       className="w-full h-16 text-center text-3xl tracking-[0.5em] font-bold bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all duration-200"
                       placeholder="------"
                       value={otp}
@@ -416,6 +421,7 @@ export default function LoginPage() {
                     <button
                       type="submit"
                       id="btn-verify-otp"
+                      suppressHydrationWarning
                       className="w-full h-12 flex items-center justify-center gap-2 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 active:scale-[0.99] transition-all duration-150 cursor-pointer shadow-sm"
                       disabled={loading}
                     >
@@ -429,6 +435,7 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={() => setStep("MOBILE")}
+                      suppressHydrationWarning
                       className="w-full h-12 flex items-center justify-center gap-2 border border-outline text-primary hover:bg-surface-container-low font-bold rounded-lg transition-all duration-150"
                     >
                       <span className="material-symbols-outlined">arrow_back</span>
