@@ -17,7 +17,7 @@ interface FooterActionsProps {
   loading: boolean;
 }
 
-export default function FooterActions({ prevSection, nextSection, setActiveSection, saveDraft, submitForm, loading }: FooterActionsProps) {
+export default function FooterActions({ prevSection, nextSection, setActiveSection, saveDraft, submitForm, loading, onSaveAndContinue }: FooterActionsProps & { onSaveAndContinue?: () => void }) {
   return (
     <footer className="mt-auto bg-surface-container-lowest border-t border-outline-variant px-6 py-4 z-40">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
@@ -42,10 +42,11 @@ export default function FooterActions({ prevSection, nextSection, setActiveSecti
           {nextSection ? (
             <button
               type="button"
-              onClick={() => setActiveSection(nextSection.key)}
-              className="flex items-center gap-1 px-8 py-2 bg-primary text-on-primary font-semibold rounded shadow hover:opacity-90 active:scale-95 transition-all text-label-md"
+              onClick={onSaveAndContinue || (() => setActiveSection(nextSection.key))}
+              disabled={loading}
+              className="flex items-center gap-1 px-8 py-2 bg-primary text-on-primary font-semibold rounded shadow hover:opacity-90 active:scale-95 transition-all text-label-md disabled:opacity-60"
             >
-              Save &amp; Continue
+              {loading ? "Saving..." : "Save & Continue"}
               <span className="material-symbols-outlined text-[18px] ml-1">chevron_right</span>
             </button>
           ) : (

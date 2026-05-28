@@ -92,8 +92,8 @@ export default function FormWizardV2() {
         }
         return;
       }
-    } catch (e) {
-      console.error("Failed to check status", e);
+    } catch {
+      // Ignore errors like 403 or 404 if status doesn't exist or is not accessible
     }
 
     try {
@@ -182,6 +182,331 @@ export default function FormWizardV2() {
     }
   }
 
+  async function handleSaveAndContinue() {
+    setValidationErrors([]);
+    const errors: string[] = [];
+
+    // Family / Address section validations
+    if (activeSection === "family") {
+      if (!familyInfo.address || familyInfo.address.trim() === "") errors.push("Permanent Address is required.");
+      if (!familyInfo.district) errors.push("District is required.");
+      if (!familyInfo.areaType) {
+        errors.push("Area Type (Rural/Urban) is required.");
+      } else if (familyInfo.areaType === "Rural") {
+        if (!familyInfo.block) errors.push("Block is required for Rural area.");
+        if (!familyInfo.gp) errors.push("Gram Panchayat is required for Rural area.");
+      } else if (familyInfo.areaType === "Urban") {
+        if (!familyInfo.ulb) errors.push("ULB / Municipality is required for Urban area.");
+        if (!familyInfo.ward) errors.push("Ward is required for Urban area.");
+      }
+      
+      if (familyInfo.totalAnnualFamilyIncome === null || familyInfo.totalAnnualFamilyIncome === undefined || isNaN(familyInfo.totalAnnualFamilyIncome)) {
+        errors.push("Total annual family income is required.");
+      }
+    }
+
+    // Basic section validations
+    if (activeSection === "basic" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (!m.isHoF && m.isChild === null) {
+        errors.push(`${prefix}: Member Type (Adult or Child) must be selected.`);
+      }
+
+      if (!m.memberName || m.memberName.trim() === "") errors.push(`${prefix}: Name is required.`);
+
+      if (!m.isHoF && !m.relationWithHeadOfFamily) errors.push(`${prefix}: Relation with Head of Family is required.`);
+      if (!m.dateOfBirth) errors.push(`${prefix}: Date of Birth is required.`);
+      if (!m.gender) errors.push(`${prefix}: Gender is required.`);
+      if (!m.socialCategory) errors.push(`${prefix}: Social Category is required.`);
+      
+      if (m.aadhaarNo && m.aadhaarNo !== "N/A") {
+        if (!validateAadhaar(m.aadhaarNo)) errors.push(`${prefix}: Aadhaar number is invalid.`);
+      } else if (m.isChild === false) {
+        errors.push(`${prefix}: Aadhaar number is required for adults.`);
+      } else if (m.aadhaarNo === "N/A") {
+        let age = 999;
+        if (m.dateOfBirth) {
+          const dob = new Date(m.dateOfBirth);
+          const today = new Date();
+          age = today.getFullYear() - dob.getFullYear();
+          const mt = today.getMonth() - dob.getMonth();
+          if (mt < 0 || (mt === 0 && today.getDate() < dob.getDate())) {
+            age--;
+          }
+        }
+        if (age >= 5 || m.isChild !== true) {
+          errors.push(`${prefix}: 'N/A' for Aadhaar is only allowed for children under 5 years of age.`);
+        }
+      }
+
+      if (m.isHoF) {
+        if (!m.mobileNo) errors.push(`${prefix}: Contact number is required for Head of Family.`);
+        else if (!validateMobile(m.mobileNo)) errors.push(`${prefix}: Contact number must be 10 digits.`);
+      } else if (m.mobileNo && !validateMobile(m.mobileNo)) {
+        errors.push(`${prefix}: Contact number must be 10 digits.`);
+      }
+
+      if (m.gender === "Female" && m.isChild === false) {
+        if (m.applyingForAnnapurnaBhandar === null || m.applyingForAnnapurnaBhandar === undefined) {
+          errors.push(`${prefix}: Applying for Annapurna Yojana is a mandatory selection for adult females.`);
+        }
+      }
+      
+      if (m.isChild === false) {
+        if (!m.epicNo || (m.epicNo as string).trim() === "") errors.push(`${prefix}: EPIC (Voter ID) is required for adults.`);
+        else if (!validateEpic(m.epicNo)) errors.push(`${prefix}: EPIC (Voter ID) number is invalid.`);
+        
+        if (!m.assemblyConstituencyNo || (m.assemblyConstituencyNo as string).trim() === "") errors.push(`${prefix}: Assembly Constituency No. is required for adults.`);
+        if (!m.partNo || (m.partNo as string).trim() === "") errors.push(`${prefix}: Part No. is required for adults.`);
+        
+        if (!m.bankAccountNo || (m.bankAccountNo as string).trim() === "") errors.push(`${prefix}: Bank Account number is required for adults.`);
+        else if (!validateBankAccount(m.bankAccountNo)) errors.push(`${prefix}: Bank Account number must be between 9 and 18 digits.`);
+        
+        if (!m.ifscCode || (m.ifscCode as string).trim() === "") errors.push(`${prefix}: IFSC Code is required for adults.`);
+        else if (!validateIfsc(m.ifscCode)) errors.push(`${prefix}: IFSC Code format is invalid.`);
+        else if (!m.bankName || m.bankName === "Invalid IFSC" || (m.bankName as string).trim() === "") errors.push(`${prefix}: Valid Bank Name is required.`);
+      } else {
+        if (m.epicNo && !validateEpic(m.epicNo)) errors.push(`${prefix}: EPIC (Voter ID) number is invalid.`);
+        if (m.bankAccountNo && !validateBankAccount(m.bankAccountNo)) errors.push(`${prefix}: Bank Account number must be between 9 and 18 digits.`);
+        if (m.ifscCode && !validateIfsc(m.ifscCode)) errors.push(`${prefix}: IFSC Code format is invalid.`);
+      }
+    }
+
+    // Ration section validations
+    if (activeSection === "ration" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (m.hasDigitalRationCard === null || m.hasDigitalRationCard === undefined) {
+        errors.push(`${prefix}: Please select whether you have a Digital Ration Card.`);
+      } else if (m.hasDigitalRationCard === true) {
+        if (!m.digitalRationCardType) {
+          errors.push(`${prefix}: Digital Ration Card Type is required.`);
+        }
+        if (!m.digitalRationCardNo || m.digitalRationCardNo.trim() === "") {
+          errors.push(`${prefix}: Ration Card No. is required.`);
+        }
+      }
+
+      if (m.liftingMonthlyRation === null || m.liftingMonthlyRation === undefined) {
+        errors.push(`${prefix}: Please select whether family is lifting monthly ration.`);
+      }
+    }
+
+    // Assets section validations
+    if (activeSection === "assets" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (m.hasThreePuccaRooms === null || m.hasThreePuccaRooms === undefined) {
+        errors.push(`${prefix}: Please select if the house has ≥3 pucca rooms.`);
+      }
+
+      if (m.ownsLand === null || m.ownsLand === undefined) {
+        errors.push(`${prefix}: Please select whether the family owns any land.`);
+      } else if (m.ownsLand === true) {
+        if (!m.landholdingSizeDecimals) {
+          errors.push(`${prefix}: Landholding size is required when owning land.`);
+        }
+      }
+
+      if (m.hasFourWheeler) {
+        if (!m.vehicleCount) errors.push(`${prefix}: Number of Vehicles is required.`);
+        if (!m.vehicleModel || (m.vehicleModel as string).trim() === "") errors.push(`${prefix}: Vehicle Model is required.`);
+        if (!m.vehicleRegistrationNo || (m.vehicleRegistrationNo as string).trim() === "") errors.push(`${prefix}: Vehicle Registration No(s). is required.`);
+      }
+
+      if (m.hasHealthInsurance) {
+        if (!m.healthInsuranceType) errors.push(`${prefix}: Insurance Type is required.`);
+        if (!m.healthInsuranceSumAssured && m.healthInsuranceSumAssured !== 0) errors.push(`${prefix}: Insurance Sum Assured is required.`);
+        if (!m.healthInsuranceAnnualPremium && m.healthInsuranceAnnualPremium !== 0) errors.push(`${prefix}: Insurance Annual Premium is required.`);
+      }
+
+      if (m.isChild) {
+        if (!m.vaccinationStatus) {
+          errors.push(`${prefix}: Vaccination Status is required for child members.`);
+        } else if (m.vaccinationStatus === "Yes" && (!m.vaccinationCardId || (m.vaccinationCardId as string).trim() === "")) {
+          errors.push(`${prefix}: Vaccination Card ID is required.`);
+        } else if (m.vaccinationStatus === "Not Vaccinated" && (!m.vaccinationSkipReasonOrDate || (m.vaccinationSkipReasonOrDate as string).trim() === "")) {
+          errors.push(`${prefix}: Reason for skipping or Last date is required.`);
+        }
+      }
+    }
+
+    // Income section validations
+    if (activeSection === "income" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (!m.isChild) {
+        if (m.paysIncomeOrProfessionalTax === null || m.paysIncomeOrProfessionalTax === undefined) {
+          errors.push(`${prefix}: Please select whether you pay Income or Professional Tax.`);
+        }
+        
+        if (m.hasPanCard === null || m.hasPanCard === undefined) {
+          errors.push(`${prefix}: Please select whether you have a PAN Card.`);
+        } else if (m.hasPanCard === true) {
+          if (!m.panName || (m.panName as string).trim() === "") errors.push(`${prefix}: Name on PAN Card is required.`);
+          if (!m.panNo || (m.panNo as string).trim() === "") errors.push(`${prefix}: PAN No. is required.`);
+          else if (!validatePan(m.panNo)) errors.push(`${prefix}: PAN number is invalid.`);
+        }
+
+        if (!m.natureOfEmployment || (m.natureOfEmployment as string[]).length === 0) {
+          errors.push(`${prefix}: Nature of Employment is required.`);
+        }
+
+        if (!m.literacyStatus) {
+          errors.push(`${prefix}: Literacy Status is required.`);
+        } else if (m.literacyStatus === "Literate" && (!m.highestEducationalQualifications || (m.highestEducationalQualifications as string).trim() === "")) {
+          errors.push(`${prefix}: Highest Educational Qualification is required.`);
+        }
+
+        if (m.holdsConstitutionalPost === null || m.holdsConstitutionalPost === undefined) {
+          errors.push(`${prefix}: Please select whether you hold any constitutional post.`);
+        } else if (m.holdsConstitutionalPost === true) {
+          if (!m.constitutionalPostMemberNo || (m.constitutionalPostMemberNo as string).trim() === "") {
+            errors.push(`${prefix}: Member No. for constitutional post is required.`);
+          }
+        }
+
+        if (m.isGovtPensioner === null || m.isGovtPensioner === undefined) {
+          errors.push(`${prefix}: Please select whether you are a government pensioner.`);
+        } else if (m.isGovtPensioner === true) {
+          if (!m.govtPensionerMemberNo || (m.govtPensionerMemberNo as string).trim() === "") {
+            errors.push(`${prefix}: Member No. for government pensioner is required.`);
+          }
+        }
+
+        if (m.isRegisteredGst === null || m.isRegisteredGst === undefined) {
+          errors.push(`${prefix}: Please select whether you are registered under GST.`);
+        } else if (m.isRegisteredGst === true) {
+          if (!m.gstin || (m.gstin as string).trim() === "") {
+            errors.push(`${prefix}: GSTIN is required.`);
+          }
+        }
+      }
+    }
+
+    // Identity section validations
+    if (activeSection === "identity" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (m.caaApplicationStatus === "Applied") {
+        if (!m.caaApplicationNo || (m.caaApplicationNo as string).trim() === "") {
+          errors.push(`${prefix}: CAA Application No. is required when status is Applied.`);
+        }
+      } else if (m.caaApplicationStatus === "Issued") {
+        if (!m.caaCertificateNo || (m.caaCertificateNo as string).trim() === "") {
+          errors.push(`${prefix}: CAA Certificate No. is required when status is Issued.`);
+        }
+      }
+
+      if (Array.isArray(m.otherSpecificIds) && m.otherSpecificIds.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        m.otherSpecificIds.forEach((idObj: any, idx: number) => {
+          if (!idObj.idType || idObj.idType.trim() === "") {
+            errors.push(`${prefix}: ID Type is required for Other Specific ID #${idx + 1}.`);
+          }
+          if (!idObj.issueDate || idObj.issueDate.trim() === "") {
+            errors.push(`${prefix}: Date of issue is required for Other Specific ID #${idx + 1}.`);
+          }
+        });
+      }
+
+      if (m.sir2026TribunalStatus === "Yes") {
+        if (!m.sir2026CaseDetails || (m.sir2026CaseDetails as string).trim() === "") {
+          errors.push(`${prefix}: Case Details are required for SIR 2026 pending cases.`);
+        }
+      }
+    }
+
+    // Schemes section validations
+    if (activeSection === "schemes" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (m.receivesGovtSchemeBenefits) {
+        if (!m.govtSchemeBenefits || m.govtSchemeBenefits.length === 0) {
+          errors.push(`${prefix}: Please specify at least one scheme name.`);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          m.govtSchemeBenefits.forEach((schemeObj: any, idx: number) => {
+            let name = "";
+            if (typeof schemeObj === "string") {
+              try { 
+                const parsed = JSON.parse(schemeObj);
+                name = parsed.schemeName || "";
+              } catch {
+                name = schemeObj;
+              }
+            } else if (schemeObj) {
+              name = schemeObj.schemeName || "";
+            }
+            if (!name || name.trim() === "") {
+              errors.push(`${prefix}: Scheme Name is required for Scheme ${idx + 1}.`);
+            }
+          });
+        }
+      }
+    }
+
+    // Social section validations
+    if (activeSection === "social" && currentMember) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      const m = currentMember;
+
+      if (m.isChild) {
+        if (m.schoolGrade || m.schoolName || m.schoolType) {
+          if (!m.schoolGrade || (m.schoolGrade as string).trim() === "") errors.push(`${prefix}: Grade is required if attending school.`);
+          if (!m.schoolName || (m.schoolName as string).trim() === "") errors.push(`${prefix}: School Name is required if attending school.`);
+          if (!m.schoolType) errors.push(`${prefix}: School Type is required if attending school.`);
+          else if (m.schoolType === "Others" && (!m.schoolTypeOther || (m.schoolTypeOther as string).trim() === "")) {
+            errors.push(`${prefix}: Please specify the Other School Type.`);
+          }
+        }
+
+        if (!m.vaccinationStatus) {
+          errors.push(`${prefix}: Vaccination Status is required.`);
+        } else if (m.vaccinationStatus === "Yes" && (!m.vaccinationCardId || (m.vaccinationCardId as string).trim() === "")) {
+          errors.push(`${prefix}: Vaccination Card ID is required.`);
+        } else if ((m.vaccinationStatus === "No" || m.vaccinationStatus === "Not Vaccinated") && (!m.vaccinationSkipReasonOrDate || (m.vaccinationSkipReasonOrDate as string).trim() === "")) {
+          errors.push(`${prefix}: Last vaccination date / reason for skip is required.`);
+        }
+      }
+    }
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    try {
+      const payload = serializePayload();
+      const payloadStr = JSON.stringify(payload);
+      
+      if (payloadStr !== lastSavedPayloadRef.current) {
+        setLoading(true);
+        const res = await api.post<{ applicationId?: string }>("/form/draft", payload);
+        if (res.applicationId) setAppId(res.applicationId);
+        lastSavedPayloadRef.current = payloadStr;
+      }
+      
+      if (nextSection) {
+        setActiveSection(nextSection.key);
+        window.scrollTo(0, 0);
+      }
+    } catch (err: unknown) {
+      setValidationErrors([`Failed to save draft: ${err instanceof Error ? err.message : String(err)}`]);
+      window.scrollTo(0, 0);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function submitForm() {
     setValidationErrors([]);
     const errors: string[] = [];
@@ -189,10 +514,25 @@ export default function FormWizardV2() {
     // Family Level Validation
     if (!familyInfo.isAgreed) errors.push("You must agree to the declaration in the Common Details Tab.");
     if (familyInfo.totalFamilyMembers < 1 || familyInfo.totalFamilyMembers > 50) errors.push("Total family members must be between 1 and 50.");
-    if ((familyInfo.noOfLiterateAdults || 0) + (familyInfo.noOfIlliterateAdults || 0) !== familyInfo.totalFamilyMembers) {
-      errors.push("The sum of literate and illiterate adults must be equal to the Total No. of Family Members.");
+    const adultCount = members.filter(m => m.isChild === false || m.isHoF).length;
+    if ((familyInfo.noOfLiterateAdults || 0) + (familyInfo.noOfIlliterateAdults || 0) !== adultCount) {
+      errors.push("Please ensure all Adult family members have their Literacy Status explicitly selected in their Income / Profession tab.");
     }
     if (!familyInfo.address || familyInfo.address.trim() === "") errors.push("Permanent Address is required in Common Details.");
+    if (!familyInfo.district) errors.push("District is required in Common Details.");
+    if (!familyInfo.areaType) {
+      errors.push("Area Type (Rural/Urban) is required in Common Details.");
+    } else if (familyInfo.areaType === "Rural") {
+      if (!familyInfo.block) errors.push("Block is required for Rural area in Common Details.");
+      if (!familyInfo.gp) errors.push("Gram Panchayat is required for Rural area in Common Details.");
+    } else if (familyInfo.areaType === "Urban") {
+      if (!familyInfo.ulb) errors.push("ULB / Municipality is required for Urban area in Common Details.");
+      if (!familyInfo.ward) errors.push("Ward is required for Urban area in Common Details.");
+    }
+    
+    if (familyInfo.totalAnnualFamilyIncome === null || familyInfo.totalAnnualFamilyIncome === undefined || isNaN(familyInfo.totalAnnualFamilyIncome)) {
+      errors.push("Total annual family income is required in Common Details.");
+    }
 
 
     // Members Level Validation
@@ -291,7 +631,7 @@ export default function FormWizardV2() {
   };
 
   const updateFamily = (field: string, value: unknown) => {
-    setFamilyInfo({ ...familyInfo, [field]: value });
+    setFamilyInfo(prev => ({ ...prev, [field]: value }));
   };
 
   const dynamicSections = (!isCommonTab && currentMember && currentMember.isHoF)
@@ -577,6 +917,7 @@ export default function FormWizardV2() {
           saveDraft={saveDraft}
           submitForm={submitForm}
           loading={loading}
+          onSaveAndContinue={handleSaveAndContinue}
         />}
       </main>
 

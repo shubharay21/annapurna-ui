@@ -104,7 +104,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
           <div>
             <label className={labelCls}>{t("Name (As per Aadhaar or Official ID)")}</label>
-            <input data-testid="member-name" type="text" className={inputCls} value={member.memberName} onChange={e => updateMember(activeTab, "memberName", e.target.value)} />
+            <input data-testid="member-name" type="text" className={inputCls} value={member.memberName} onChange={e => updateMember(activeTab, "memberName", e.target.value.replace(/[^a-zA-Z\s]/g, ""))} />
           </div>
           {!member.isHoF && (
             <div>
@@ -127,7 +127,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
           )}
           <div>
             <label className={labelCls}>{t("Date of Birth")}</label>
-            <input type="date" className={inputCls} value={member.dateOfBirth || ""} onChange={e => updateMember(activeTab, "dateOfBirth", e.target.value)} />
+            <input type="date" className={inputCls} value={member.dateOfBirth || ""} max={new Date().toISOString().split('T')[0]} onChange={e => updateMember(activeTab, "dateOfBirth", e.target.value)} />
           </div>
           <div>
             <label className={labelCls}>{t("Gender")}</label>
@@ -169,12 +169,12 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
                 </label>
               )}
             </div>
-            <input data-testid="member-aadhaar" type="text" className={inputCls} disabled={member.aadhaarNo === "N/A"} value={member.aadhaarNo} onChange={e => updateMember(activeTab, "aadhaarNo", e.target.value)} />
+            <input data-testid="member-aadhaar" type="text" className={inputCls} disabled={member.aadhaarNo === "N/A"} value={member.aadhaarNo} maxLength={12} onChange={e => updateMember(activeTab, "aadhaarNo", e.target.value.replace(/\D/g, ""))} />
           </div>
           {member.isHoF && (
             <div>
               <label className={labelCls}>{t("Contact No (Preferably Aadhaar linked mobile no. of HOF)")}</label>
-              <input data-testid="member-mobile" type="text" className={inputCls} value={member.mobileNo || ""} onChange={e => updateMember(activeTab, "mobileNo", e.target.value)} />
+              <input data-testid="member-mobile" type="text" className={inputCls} value={member.mobileNo || ""} maxLength={10} onChange={e => updateMember(activeTab, "mobileNo", e.target.value.replace(/\D/g, ""))} />
             </div>
           )}
         </div>
@@ -187,15 +187,15 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className={labelCls}>{t("EPIC No.")}</label>
-            <input type="text" className={inputCls} value={member.epicNo || ""} onChange={e => updateMember(activeTab, "epicNo", e.target.value)} />
+            <input type="text" className={inputCls} value={member.epicNo || ""} onChange={e => updateMember(activeTab, "epicNo", e.target.value.replace(/[^a-zA-Z0-9]/g, ""))} />
           </div>
           <div>
             <label className={labelCls}>{t("Assembly Constituency No.")}</label>
-            <input type="text" className={inputCls} value={member.assemblyConstituencyNo || ""} onChange={e => updateMember(activeTab, "assemblyConstituencyNo", e.target.value)} />
+            <input type="text" className={inputCls} value={member.assemblyConstituencyNo || ""} onChange={e => updateMember(activeTab, "assemblyConstituencyNo", e.target.value.replace(/\D/g, ""))} />
           </div>
           <div>
             <label className={labelCls}>{t("Part No.")}</label>
-            <input type="text" className={inputCls} value={member.partNo || ""} onChange={e => updateMember(activeTab, "partNo", e.target.value)} />
+            <input type="text" className={inputCls} value={member.partNo || ""} onChange={e => updateMember(activeTab, "partNo", e.target.value.replace(/\D/g, ""))} />
           </div>
         </div>
       </section>
@@ -210,14 +210,14 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
               {t("Account No.")}
               <span className="ml-1.5 text-[11px] font-normal text-primary/70 italic">{t("(Aadhaar seeded account no.)")}</span>
             </label>
-            <input type="text" className={inputCls} value={member.bankAccountNo || ""} onChange={e => updateMember(activeTab, "bankAccountNo", e.target.value)} />
+            <input type="text" className={inputCls} value={member.bankAccountNo || ""} onChange={e => updateMember(activeTab, "bankAccountNo", e.target.value.replace(/\D/g, ""))} />
           </div>
           <div>
             <label className={labelCls}>{t("IFSC Code / Bank Search")}</label>
             <IfscSearch 
               className={inputCls} 
               value={member.ifscCode || ""} 
-              onChange={val => updateMember(activeTab, "ifscCode", val)} 
+              onChange={val => updateMember(activeTab, "ifscCode", val.replace(/[^a-zA-Z0-9\s]/g, ""))} 
               placeholder={t("Type IFSC or Bank Name")}
             />
           </div>

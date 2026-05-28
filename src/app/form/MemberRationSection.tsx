@@ -87,7 +87,7 @@ export default function MemberRationSection({ member, activeTab, updateMember }:
               </div>
               <div>
                 <label className={labelCls}>{t("Ration Card No.")}</label>
-                <input type="text" className={inputCls} value={member.digitalRationCardNo || ""} onChange={e => updateMember(activeTab, "digitalRationCardNo", e.target.value)} />
+                <input type="text" className={inputCls} value={member.digitalRationCardNo || ""} onChange={e => updateMember(activeTab, "digitalRationCardNo", e.target.value.replace(/\D/g, ""))} />
               </div>
             </div>
           )}
