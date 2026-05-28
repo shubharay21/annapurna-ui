@@ -21,8 +21,9 @@ import Header from "@/components/layout/Header";
 import MobileNav from "@/components/layout/MobileNav";
 import MemberTabs from "@/components/form/MemberTabs";
 import FooterActions from "@/components/form/FooterActions";
+import dynamic from "next/dynamic";
 
-export default function FormWizardV2() {
+function FormWizardV2Inner() {
   const { t } = useLanguage();
 
   const router = useRouter();
@@ -727,7 +728,7 @@ export default function FormWizardV2() {
         />
       )}
 
-      <main className="flex-1 flex flex-col min-h-screen overflow-y-auto">
+      <main className={`flex-1 flex flex-col min-h-screen overflow-y-auto ${!isCommonTab ? "md:pl-72" : ""}`}>
         <Header
           mobileNavOpen={mobileNavOpen}
           setMobileNavOpen={setMobileNavOpen}
@@ -931,3 +932,9 @@ export default function FormWizardV2() {
     </div>
   );
 }
+
+const FormWizardV2 = dynamic(() => Promise.resolve(FormWizardV2Inner), {
+  ssr: false,
+});
+
+export default FormWizardV2;

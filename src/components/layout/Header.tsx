@@ -71,7 +71,7 @@ export default function Header({ mobileNavOpen, setMobileNavOpen, appId }: Heade
       <div className="flex items-center gap-4">
         <button
           type="button"
-          className="material-symbols-outlined text-primary md:hidden"
+          className="material-symbols-outlined text-primary md:!hidden"
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
         >
           menu

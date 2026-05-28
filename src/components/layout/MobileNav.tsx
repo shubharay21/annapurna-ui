@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useLanguage } from "@/app/i18n/LanguageContext";
 
 interface Section {
   key: string;
@@ -17,68 +18,69 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ mobileNavOpen, setMobileNavOpen, sections, activeSection, setActiveSection }: MobileNavProps) {
+  const { t } = useLanguage();
+
   return (
     <>
-      {/* ── Mobile FAB ── */}
-      <div className="md:hidden fixed bottom-6 right-6 z-50">
-        <button
-          onClick={() => setMobileNavOpen(!mobileNavOpen)}
-          className="w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center"
-        >
-          <span className="material-symbols-outlined text-[28px]">menu</span>
-        </button>
-      </div>
+      {/* ── Mobile Menu Drawer Backdrop ── */}
+      <div 
+        className={`md:hidden fixed inset-0 z-[60] bg-black/40 transition-opacity duration-300 ${
+          mobileNavOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileNavOpen(false)}
+      />
 
-      {/* ── Mobile Bottom Nav ── */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-outline-variant">
-        {sections.slice(0, 4).map(sec => (
-          <button
-            key={sec.key}
-            onClick={() => setActiveSection(sec.key)}
-            className={`flex flex-col items-center justify-center px-3 py-1 rounded-full transition-all ${
-              activeSection === sec.key
-                ? "bg-primary-container text-on-primary-container active:scale-90"
-                : "text-on-surface-variant"
-            }`}
-          >
-            <span className="material-symbols-outlined text-[22px]">{sec.icon}</span>
-            <span className="text-[10px] font-semibold mt-0.5">{sec.label.split(" ")[0]}</span>
-          </button>
-        ))}
-      </nav>
-      {/* ── Mobile Menu Overlay ── */}
-      {mobileNavOpen && (
-        <div className="md:hidden fixed inset-0 z-[60] bg-surface flex flex-col">
-          <div className="flex items-center justify-between p-4 border-b border-outline-variant">
-            <h2 className="text-title-md font-bold text-primary">Menu</h2>
-            <button 
-              onClick={() => setMobileNavOpen(false)}
-              className="p-2 bg-surface-container-highest rounded-full text-on-surface"
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
+      {/* ── Mobile Menu Drawer ── */}
+      <aside 
+        className={`md:hidden fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] z-[70] bg-surface flex flex-col shadow-2xl border-r border-outline-variant transition-transform duration-300 ease-in-out ${
+          mobileNavOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between p-4 border-b border-outline-variant bg-surface-container-low">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary">menu_open</span>
+            <h2 className="text-label-lg font-bold text-primary">{t("Form Sections")}</h2>
           </div>
-          <div className="flex-1 overflow-y-auto p-4 space-y-2">
-            {sections.map(sec => (
+          <button 
+            type="button"
+            onClick={() => setMobileNavOpen(false)}
+            className="p-2 bg-surface-container-highest rounded-full text-on-surface hover:bg-surface-variant transition-colors flex items-center justify-center"
+          >
+            <span className="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+
+        {/* Drawer Items */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-1 bg-surface-container-lowest">
+          {sections.map(sec => {
+            const isActive = activeSection === sec.key;
+            return (
               <button
+                type="button"
                 key={sec.key}
                 onClick={() => {
                   setActiveSection(sec.key);
                   setMobileNavOpen(false);
                 }}
                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-left ${
-                  activeSection === sec.key
-                    ? "bg-primary-container text-on-primary-container font-bold"
+                  isActive
+                    ? "bg-secondary-container text-on-secondary-container font-bold scale-[0.98]"
                     : "text-on-surface-variant hover:bg-surface-container"
                 }`}
               >
-                <span className="material-symbols-outlined">{sec.icon}</span>
-                <span className="text-body-lg">{sec.label}</span>
+                <span className="material-symbols-outlined text-[20px]">{sec.icon}</span>
+                <span className="text-label-md">{t(sec.label)}</span>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      )}
+
+        {/* Drawer Footer */}
+        <div className="p-4 border-t border-outline-variant bg-surface-container-low text-center">
+          <p className="text-[10px] text-outline">Annapurna Yojana Portal v2.0</p>
+        </div>
+      </aside>
     </>
   );
 }
