@@ -10,9 +10,13 @@ if (!fs.existsSync(targetDir)) {
   fs.mkdirSync(targetDir, { recursive: true });
 }
 
-const versions = {};
+// Read all JSON files from source if it exists
+if (!fs.existsSync(sourceDir)) {
+  console.log(`Source master_data directory not found at ${sourceDir}. Skipping sync as target files already exist in ${targetDir}.`);
+  process.exit(0);
+}
 
-// Read all JSON files from source
+const versions = {};
 const files = fs.readdirSync(sourceDir).filter(file => file.endsWith('.json'));
 
 files.forEach(file => {
