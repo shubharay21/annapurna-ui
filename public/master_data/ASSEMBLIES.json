@@ -1,0 +1,1472 @@
+[
+  {
+    "district_code": 308,
+    "id": 1,
+    "text": "Mekliganj"
+  },
+  {
+    "district_code": 308,
+    "id": 2,
+    "text": "Mathabhanga"
+  },
+  {
+    "district_code": 308,
+    "id": 3,
+    "text": "Cooch Behar Uttar"
+  },
+  {
+    "district_code": 308,
+    "id": 4,
+    "text": "Cooch Behar Dakshin"
+  },
+  {
+    "district_code": 308,
+    "id": 5,
+    "text": "Sitalkuchi"
+  },
+  {
+    "district_code": 308,
+    "id": 6,
+    "text": "Sitai"
+  },
+  {
+    "district_code": 308,
+    "id": 7,
+    "text": "Dinhata"
+  },
+  {
+    "district_code": 308,
+    "id": 8,
+    "text": "Natabari"
+  },
+  {
+    "district_code": 308,
+    "id": 9,
+    "text": "Tufanganj"
+  },
+  {
+    "district_code": 664,
+    "id": 10,
+    "text": "Kumargram"
+  },
+  {
+    "district_code": 664,
+    "id": 11,
+    "text": "Kalchini"
+  },
+  {
+    "district_code": 664,
+    "id": 12,
+    "text": "Alipurduars"
+  },
+  {
+    "district_code": 664,
+    "id": 13,
+    "text": "Falakata"
+  },
+  {
+    "district_code": 314,
+    "id": 15,
+    "text": "Dhupguri"
+  },
+  {
+    "district_code": 314,
+    "id": 16,
+    "text": "Maynaguri"
+  },
+  {
+    "district_code": 314,
+    "id": 17,
+    "text": "Jalpaiguri"
+  },
+  {
+    "district_code": 314,
+    "id": 18,
+    "text": "Rajganj"
+  },
+  {
+    "district_code": 314,
+    "id": 19,
+    "text": "Dabgram-Fulbari"
+  },
+  {
+    "district_code": 314,
+    "id": 20,
+    "text": "Mal"
+  },
+  {
+    "district_code": 314,
+    "id": 21,
+    "text": "Nagrakata"
+  },
+  {
+    "district_code": 702,
+    "id": 22,
+    "text": "Kalimpong"
+  },
+  {
+    "district_code": 309,
+    "id": 23,
+    "text": "Darjeeling"
+  },
+  {
+    "district_code": 309,
+    "id": 24,
+    "text": "Kurseong"
+  },
+  {
+    "district_code": 309,
+    "id": 25,
+    "text": "Matigara-Naxalbari"
+  },
+  {
+    "district_code": 309,
+    "id": 26,
+    "text": "Siliguri"
+  },
+  {
+    "district_code": 309,
+    "id": 27,
+    "text": "Phansidewa"
+  },
+  {
+    "district_code": 311,
+    "id": 28,
+    "text": "Chopra"
+  },
+  {
+    "district_code": 311,
+    "id": 29,
+    "text": "Islampur"
+  },
+  {
+    "district_code": 311,
+    "id": 30,
+    "text": "Goalpokhar"
+  },
+  {
+    "district_code": 311,
+    "id": 31,
+    "text": "Chakulia"
+  },
+  {
+    "district_code": 311,
+    "id": 32,
+    "text": "Karandighi"
+  },
+  {
+    "district_code": 311,
+    "id": 33,
+    "text": "Hemtabad"
+  },
+  {
+    "district_code": 311,
+    "id": 34,
+    "text": "Kaliaganj"
+  },
+  {
+    "district_code": 311,
+    "id": 35,
+    "text": "Raiganj"
+  },
+  {
+    "district_code": 311,
+    "id": 36,
+    "text": "Itahar"
+  },
+  {
+    "district_code": 310,
+    "id": 37,
+    "text": "Kushmandi"
+  },
+  {
+    "district_code": 310,
+    "id": 38,
+    "text": "Kumarganj"
+  },
+  {
+    "district_code": 310,
+    "id": 39,
+    "text": "Balurghat"
+  },
+  {
+    "district_code": 310,
+    "id": 40,
+    "text": "Tapan"
+  },
+  {
+    "district_code": 310,
+    "id": 41,
+    "text": "Gangarampur"
+  },
+  {
+    "district_code": 310,
+    "id": 42,
+    "text": "Harirampur"
+  },
+  {
+    "district_code": 316,
+    "id": 43,
+    "text": "Habibpur"
+  },
+  {
+    "district_code": 316,
+    "id": 44,
+    "text": "Gazole"
+  },
+  {
+    "district_code": 316,
+    "id": 45,
+    "text": "Chanchal"
+  },
+  {
+    "district_code": 316,
+    "id": 46,
+    "text": "Harischandrapur"
+  },
+  {
+    "district_code": 316,
+    "id": 47,
+    "text": "Malatipur"
+  },
+  {
+    "district_code": 316,
+    "id": 48,
+    "text": "Ratua"
+  },
+  {
+    "district_code": 316,
+    "id": 49,
+    "text": "Manikchak"
+  },
+  {
+    "district_code": 316,
+    "id": 50,
+    "text": "Maldaha"
+  },
+  {
+    "district_code": 316,
+    "id": 51,
+    "text": "Englishbazar"
+  },
+  {
+    "district_code": 316,
+    "id": 52,
+    "text": "Mothabari"
+  },
+  {
+    "district_code": 316,
+    "id": 53,
+    "text": "Sujapur"
+  },
+  {
+    "district_code": 316,
+    "id": 54,
+    "text": "Baisnabnagar"
+  },
+  {
+    "district_code": 319,
+    "id": 55,
+    "text": "Farakka"
+  },
+  {
+    "district_code": 319,
+    "id": 56,
+    "text": "Samserganj"
+  },
+  {
+    "district_code": 319,
+    "id": 57,
+    "text": "Suti"
+  },
+  {
+    "district_code": 319,
+    "id": 58,
+    "text": "Jangipur"
+  },
+  {
+    "district_code": 319,
+    "id": 59,
+    "text": "RaghunathGanj"
+  },
+  {
+    "district_code": 319,
+    "id": 60,
+    "text": "Sagardighi"
+  },
+  {
+    "district_code": 319,
+    "id": 61,
+    "text": "Lalgola"
+  },
+  {
+    "district_code": 319,
+    "id": 62,
+    "text": "Bhagabangola"
+  },
+  {
+    "district_code": 319,
+    "id": 63,
+    "text": "Raninagar"
+  },
+  {
+    "district_code": 319,
+    "id": 64,
+    "text": "Murshidabad"
+  },
+  {
+    "district_code": 319,
+    "id": 65,
+    "text": "Nabagram"
+  },
+  {
+    "district_code": 319,
+    "id": 66,
+    "text": "Khargram"
+  },
+  {
+    "district_code": 319,
+    "id": 67,
+    "text": "Burwan"
+  },
+  {
+    "district_code": 319,
+    "id": 68,
+    "text": "Kandi"
+  },
+  {
+    "district_code": 319,
+    "id": 69,
+    "text": "Bharatpur"
+  },
+  {
+    "district_code": 319,
+    "id": 70,
+    "text": "Rejinagar"
+  },
+  {
+    "district_code": 319,
+    "id": 71,
+    "text": "Beldanga"
+  },
+  {
+    "district_code": 319,
+    "id": 72,
+    "text": "Baharampur"
+  },
+  {
+    "district_code": 319,
+    "id": 73,
+    "text": "Hariharpara"
+  },
+  {
+    "district_code": 319,
+    "id": 74,
+    "text": "Naoda"
+  },
+  {
+    "district_code": 319,
+    "id": 75,
+    "text": "Domkal"
+  },
+  {
+    "district_code": 319,
+    "id": 76,
+    "text": "Jalangi"
+  },
+  {
+    "district_code": 320,
+    "id": 77,
+    "text": "Karimpur"
+  },
+  {
+    "district_code": 320,
+    "id": 78,
+    "text": "Tehatta"
+  },
+  {
+    "district_code": 320,
+    "id": 79,
+    "text": "Palashipara"
+  },
+  {
+    "district_code": 320,
+    "id": 80,
+    "text": "Kaliganj"
+  },
+  {
+    "district_code": 320,
+    "id": 81,
+    "text": "Nakashipara"
+  },
+  {
+    "district_code": 320,
+    "id": 82,
+    "text": "Chapra"
+  },
+  {
+    "district_code": 320,
+    "id": 83,
+    "text": "Krishnanagar Uttar"
+  },
+  {
+    "district_code": 320,
+    "id": 84,
+    "text": "Nabadwip"
+  },
+  {
+    "district_code": 320,
+    "id": 85,
+    "text": "Krishnanagar Dakshin"
+  },
+  {
+    "district_code": 320,
+    "id": 86,
+    "text": "Santipur"
+  },
+  {
+    "district_code": 320,
+    "id": 87,
+    "text": "Ranaghat Uttar Paschim"
+  },
+  {
+    "district_code": 320,
+    "id": 88,
+    "text": "Krishnaganj"
+  },
+  {
+    "district_code": 320,
+    "id": 89,
+    "text": "Ranaghat Uttar Purba"
+  },
+  {
+    "district_code": 320,
+    "id": 90,
+    "text": "Ranaghat Dakshin"
+  },
+  {
+    "district_code": 320,
+    "id": 91,
+    "text": "Chakdaha"
+  },
+  {
+    "district_code": 320,
+    "id": 92,
+    "text": "Kalyani"
+  },
+  {
+    "district_code": 320,
+    "id": 93,
+    "text": "Haringhata"
+  },
+  {
+    "district_code": 303,
+    "id": 94,
+    "text": "Bagda"
+  },
+  {
+    "district_code": 303,
+    "id": 95,
+    "text": "Bangaon Uttar"
+  },
+  {
+    "district_code": 303,
+    "id": 96,
+    "text": "Bangaon Dakshin"
+  },
+  {
+    "district_code": 303,
+    "id": 97,
+    "text": "Gaighata"
+  },
+  {
+    "district_code": 303,
+    "id": 98,
+    "text": "Swarupnagar"
+  },
+  {
+    "district_code": 303,
+    "id": 99,
+    "text": "Baduria"
+  },
+  {
+    "district_code": 303,
+    "id": 100,
+    "text": "Habra"
+  },
+  {
+    "district_code": 303,
+    "id": 101,
+    "text": "Ashoknagar"
+  },
+  {
+    "district_code": 303,
+    "id": 102,
+    "text": "Amdanga"
+  },
+  {
+    "district_code": 303,
+    "id": 103,
+    "text": "Bijpur"
+  },
+  {
+    "district_code": 303,
+    "id": 104,
+    "text": "Naihati"
+  },
+  {
+    "district_code": 303,
+    "id": 105,
+    "text": "Bhatpara"
+  },
+  {
+    "district_code": 303,
+    "id": 106,
+    "text": "Jagatdal"
+  },
+  {
+    "district_code": 303,
+    "id": 107,
+    "text": "Noapara"
+  },
+  {
+    "district_code": 303,
+    "id": 108,
+    "text": "Barrackpur"
+  },
+  {
+    "district_code": 303,
+    "id": 109,
+    "text": "Khardaha"
+  },
+  {
+    "district_code": 303,
+    "id": 110,
+    "text": "Dum Dum Uttar"
+  },
+  {
+    "district_code": 303,
+    "id": 111,
+    "text": "Panihati"
+  },
+  {
+    "district_code": 303,
+    "id": 112,
+    "text": "Kamarhati"
+  },
+  {
+    "district_code": 303,
+    "id": 113,
+    "text": "Baranagar"
+  },
+  {
+    "district_code": 303,
+    "id": 114,
+    "text": "Dum Dum"
+  },
+  {
+    "district_code": 303,
+    "id": 115,
+    "text": "Rajarhat New Town"
+  },
+  {
+    "district_code": 303,
+    "id": 116,
+    "text": "Bidhannagar"
+  },
+  {
+    "district_code": 303,
+    "id": 117,
+    "text": "Rajarhat  Gopalpur"
+  },
+  {
+    "district_code": 303,
+    "id": 118,
+    "text": "Madhyamgram"
+  },
+  {
+    "district_code": 303,
+    "id": 119,
+    "text": "Barasat"
+  },
+  {
+    "district_code": 303,
+    "id": 120,
+    "text": "Deganga"
+  },
+  {
+    "district_code": 303,
+    "id": 121,
+    "text": "Haroa"
+  },
+  {
+    "district_code": 303,
+    "id": 122,
+    "text": "Minakhan"
+  },
+  {
+    "district_code": 303,
+    "id": 123,
+    "text": "Sandeshkhali"
+  },
+  {
+    "district_code": 303,
+    "id": 124,
+    "text": "Basirhat Dakshin"
+  },
+  {
+    "district_code": 303,
+    "id": 125,
+    "text": "Basirhat Uttar"
+  },
+  {
+    "district_code": 303,
+    "id": 126,
+    "text": "Hingalganj"
+  },
+  {
+    "district_code": 304,
+    "id": 127,
+    "text": "Gosaba"
+  },
+  {
+    "district_code": 304,
+    "id": 128,
+    "text": "Basanti"
+  },
+  {
+    "district_code": 304,
+    "id": 129,
+    "text": "Kultali"
+  },
+  {
+    "district_code": 304,
+    "id": 130,
+    "text": "Patharpratima"
+  },
+  {
+    "district_code": 304,
+    "id": 131,
+    "text": "Kakdwip"
+  },
+  {
+    "district_code": 304,
+    "id": 132,
+    "text": "Sagar"
+  },
+  {
+    "district_code": 304,
+    "id": 133,
+    "text": "Kulpi"
+  },
+  {
+    "district_code": 304,
+    "id": 134,
+    "text": "Raidighi"
+  },
+  {
+    "district_code": 304,
+    "id": 135,
+    "text": "Mandirbazar"
+  },
+  {
+    "district_code": 304,
+    "id": 136,
+    "text": "Joynagar"
+  },
+  {
+    "district_code": 304,
+    "id": 137,
+    "text": "Baruipur Purba"
+  },
+  {
+    "district_code": 304,
+    "id": 138,
+    "text": "Canning Paschim"
+  },
+  {
+    "district_code": 304,
+    "id": 139,
+    "text": "Canning Purba"
+  },
+  {
+    "district_code": 304,
+    "id": 140,
+    "text": "Baruipur Paschim"
+  },
+  {
+    "district_code": 304,
+    "id": 141,
+    "text": "Magrahat Purba"
+  },
+  {
+    "district_code": 304,
+    "id": 142,
+    "text": "Magrahat Paschim"
+  },
+  {
+    "district_code": 304,
+    "id": 143,
+    "text": "Diamond Harbour"
+  },
+  {
+    "district_code": 304,
+    "id": 144,
+    "text": "Falta"
+  },
+  {
+    "district_code": 304,
+    "id": 145,
+    "text": "Satgachhia"
+  },
+  {
+    "district_code": 304,
+    "id": 146,
+    "text": "Bishnupur"
+  },
+  {
+    "district_code": 304,
+    "id": 147,
+    "text": "Sonarpur Dakshin"
+  },
+  {
+    "district_code": 304,
+    "id": 148,
+    "text": "Bhangar"
+  },
+  {
+    "district_code": 304,
+    "id": 151,
+    "text": "Sonarpur Uttar"
+  },
+  {
+    "district_code": 304,
+    "id": 155,
+    "text": "Maheshtala"
+  },
+  {
+    "district_code": 304,
+    "id": 156,
+    "text": "Budge Budge"
+  },
+  {
+    "district_code": 315,
+    "id": 158,
+    "text": "Kolkata Port"
+  },
+  {
+    "district_code": 315,
+    "id": 159,
+    "text": "Bhabanipur"
+  },
+  {
+    "district_code": 315,
+    "id": 160,
+    "text": "Rashbehari"
+  },
+  {
+    "district_code": 315,
+    "id": 161,
+    "text": "Ballygunge"
+  },
+  {
+    "district_code": 315,
+    "id": 149,
+    "text": "Kasba"
+  },
+  {
+    "district_code": 315,
+    "id": 152,
+    "text": "Tollyganj"
+  },
+  {
+    "district_code": 315,
+    "id": 157,
+    "text": "Metiaburuz"
+  },
+  {
+    "district_code": 315,
+    "id": 162,
+    "text": "Chowrangee"
+  },
+  {
+    "district_code": 315,
+    "id": 163,
+    "text": "Entally"
+  },
+  {
+    "district_code": 315,
+    "id": 164,
+    "text": "Beleghata"
+  },
+  {
+    "district_code": 315,
+    "id": 165,
+    "text": "Jorasanko"
+  },
+  {
+    "district_code": 315,
+    "id": 166,
+    "text": "Shyampukur"
+  },
+  {
+    "district_code": 315,
+    "id": 167,
+    "text": "Maniktola"
+  },
+  {
+    "district_code": 315,
+    "id": 168,
+    "text": "Kashipur-Belgachhia"
+  },
+  {
+    "district_code": 313,
+    "id": 169,
+    "text": "Bally"
+  },
+  {
+    "district_code": 313,
+    "id": 170,
+    "text": "Howrah Uttar"
+  },
+  {
+    "district_code": 313,
+    "id": 171,
+    "text": "Howrah Madhya"
+  },
+  {
+    "district_code": 313,
+    "id": 172,
+    "text": "Shibpur"
+  },
+  {
+    "district_code": 313,
+    "id": 173,
+    "text": "Howrah Dakshin"
+  },
+  {
+    "district_code": 313,
+    "id": 174,
+    "text": "Sankrail"
+  },
+  {
+    "district_code": 313,
+    "id": 175,
+    "text": "Panchla"
+  },
+  {
+    "district_code": 313,
+    "id": 176,
+    "text": "Uluberia Purba"
+  },
+  {
+    "district_code": 313,
+    "id": 177,
+    "text": "Uluberia Uttar"
+  },
+  {
+    "district_code": 313,
+    "id": 178,
+    "text": "Uluberia Dakshin"
+  },
+  {
+    "district_code": 313,
+    "id": 179,
+    "text": "Shyampur"
+  },
+  {
+    "district_code": 313,
+    "id": 180,
+    "text": "Bagnan"
+  },
+  {
+    "district_code": 313,
+    "id": 181,
+    "text": "Amta"
+  },
+  {
+    "district_code": 313,
+    "id": 182,
+    "text": "Udaynarayanpur"
+  },
+  {
+    "district_code": 313,
+    "id": 183,
+    "text": "Jagatballavpur"
+  },
+  {
+    "district_code": 313,
+    "id": 184,
+    "text": "Domjur"
+  },
+  {
+    "district_code": 312,
+    "id": 185,
+    "text": "Uttarpara"
+  },
+  {
+    "district_code": 312,
+    "id": 186,
+    "text": "Sreerampur"
+  },
+  {
+    "district_code": 312,
+    "id": 187,
+    "text": "Champdani"
+  },
+  {
+    "district_code": 312,
+    "id": 188,
+    "text": "Singur"
+  },
+  {
+    "district_code": 312,
+    "id": 189,
+    "text": "Chandannagar"
+  },
+  {
+    "district_code": 312,
+    "id": 190,
+    "text": "Chunchura"
+  },
+  {
+    "district_code": 312,
+    "id": 191,
+    "text": "Balagarh"
+  },
+  {
+    "district_code": 312,
+    "id": 192,
+    "text": "Pandua"
+  },
+  {
+    "district_code": 312,
+    "id": 193,
+    "text": "Saptagram"
+  },
+  {
+    "district_code": 312,
+    "id": 194,
+    "text": "Chanditala"
+  },
+  {
+    "district_code": 312,
+    "id": 195,
+    "text": "Jangipara"
+  },
+  {
+    "district_code": 312,
+    "id": 196,
+    "text": "Haripal"
+  },
+  {
+    "district_code": 312,
+    "id": 197,
+    "text": "Dhanekhali"
+  },
+  {
+    "district_code": 312,
+    "id": 198,
+    "text": "Tarakeswar"
+  },
+  {
+    "district_code": 312,
+    "id": 199,
+    "text": "Pursurah"
+  },
+  {
+    "district_code": 312,
+    "id": 200,
+    "text": "Arambag"
+  },
+  {
+    "district_code": 312,
+    "id": 201,
+    "text": "Goghat"
+  },
+  {
+    "district_code": 312,
+    "id": 202,
+    "text": "Khanakul"
+  },
+  {
+    "district_code": 317,
+    "id": 203,
+    "text": "Tamluk"
+  },
+  {
+    "district_code": 317,
+    "id": 204,
+    "text": "Panskura Purba"
+  },
+  {
+    "district_code": 317,
+    "id": 205,
+    "text": "Panskura Paschim"
+  },
+  {
+    "district_code": 317,
+    "id": 206,
+    "text": "Moyna"
+  },
+  {
+    "district_code": 317,
+    "id": 207,
+    "text": "Nandakumar"
+  },
+  {
+    "district_code": 317,
+    "id": 208,
+    "text": "Mahishadal"
+  },
+  {
+    "district_code": 317,
+    "id": 209,
+    "text": "Haldia"
+  },
+  {
+    "district_code": 317,
+    "id": 210,
+    "text": "Nandigram"
+  },
+  {
+    "district_code": 317,
+    "id": 211,
+    "text": "Chandipur"
+  },
+  {
+    "district_code": 317,
+    "id": 212,
+    "text": "Patashpur"
+  },
+  {
+    "district_code": 317,
+    "id": 213,
+    "text": "Kanthi Uttar"
+  },
+  {
+    "district_code": 317,
+    "id": 214,
+    "text": "Bhagabanpur"
+  },
+  {
+    "district_code": 317,
+    "id": 215,
+    "text": "Khejuri"
+  },
+  {
+    "district_code": 317,
+    "id": 216,
+    "text": "Kanthi Dakshin"
+  },
+  {
+    "district_code": 317,
+    "id": 217,
+    "text": "Ramnagar"
+  },
+  {
+    "district_code": 317,
+    "id": 218,
+    "text": "Egra"
+  },
+  {
+    "district_code": 318,
+    "id": 219,
+    "text": "Dantan"
+  },
+  {
+    "district_code": 703,
+    "id": 220,
+    "text": "Nayagram"
+  },
+  {
+    "district_code": 703,
+    "id": 221,
+    "text": "Gopiballavpur"
+  },
+  {
+    "district_code": 703,
+    "id": 222,
+    "text": "Jhargram"
+  },
+  {
+    "district_code": 318,
+    "id": 223,
+    "text": "Keshiary"
+  },
+  {
+    "district_code": 318,
+    "id": 224,
+    "text": "Kharagpur Sadar"
+  },
+  {
+    "district_code": 318,
+    "id": 225,
+    "text": "Narayangarh"
+  },
+  {
+    "district_code": 318,
+    "id": 226,
+    "text": "Sabang"
+  },
+  {
+    "district_code": 318,
+    "id": 227,
+    "text": "Pingla"
+  },
+  {
+    "district_code": 318,
+    "id": 228,
+    "text": "Kharagpur"
+  },
+  {
+    "district_code": 318,
+    "id": 229,
+    "text": "Debra"
+  },
+  {
+    "district_code": 318,
+    "id": 230,
+    "text": "Daspur"
+  },
+  {
+    "district_code": 318,
+    "id": 231,
+    "text": "Ghatal"
+  },
+  {
+    "district_code": 318,
+    "id": 232,
+    "text": "Chandrakona"
+  },
+  {
+    "district_code": 318,
+    "id": 233,
+    "text": "Garbeta"
+  },
+  {
+    "district_code": 318,
+    "id": 234,
+    "text": "Salboni"
+  },
+  {
+    "district_code": 318,
+    "id": 235,
+    "text": "Keshpur"
+  },
+  {
+    "district_code": 318,
+    "id": 236,
+    "text": "Medinipur"
+  },
+  {
+    "district_code": 703,
+    "id": 237,
+    "text": "Binpur"
+  },
+  {
+    "district_code": 321,
+    "id": 238,
+    "text": "Bandwan"
+  },
+  {
+    "district_code": 321,
+    "id": 239,
+    "text": "Balarampur"
+  },
+  {
+    "district_code": 321,
+    "id": 240,
+    "text": "Baghmundi"
+  },
+  {
+    "district_code": 321,
+    "id": 241,
+    "text": "Joypur"
+  },
+  {
+    "district_code": 321,
+    "id": 242,
+    "text": "Purulia"
+  },
+  {
+    "district_code": 321,
+    "id": 243,
+    "text": "Manbazar"
+  },
+  {
+    "district_code": 321,
+    "id": 244,
+    "text": "Kashipur"
+  },
+  {
+    "district_code": 321,
+    "id": 245,
+    "text": "Para"
+  },
+  {
+    "district_code": 321,
+    "id": 246,
+    "text": "Raghunathpur"
+  },
+  {
+    "district_code": 305,
+    "id": 247,
+    "text": "Saltora"
+  },
+  {
+    "district_code": 305,
+    "id": 248,
+    "text": "Chhatna"
+  },
+  {
+    "district_code": 305,
+    "id": 249,
+    "text": "Ranibandh"
+  },
+  {
+    "district_code": 305,
+    "id": 250,
+    "text": "Raipur"
+  },
+  {
+    "district_code": 305,
+    "id": 251,
+    "text": "Taldangra"
+  },
+  {
+    "district_code": 305,
+    "id": 252,
+    "text": "Bankura"
+  },
+  {
+    "district_code": 305,
+    "id": 253,
+    "text": "Barjora"
+  },
+  {
+    "district_code": 305,
+    "id": 254,
+    "text": "Onda"
+  },
+  {
+    "district_code": 305,
+    "id": 255,
+    "text": "Bishnupur"
+  },
+  {
+    "district_code": 305,
+    "id": 256,
+    "text": "Katulpur"
+  },
+  {
+    "district_code": 305,
+    "id": 257,
+    "text": "Indus"
+  },
+  {
+    "district_code": 305,
+    "id": 258,
+    "text": "Sonamukhi"
+  },
+  {
+    "district_code": 306,
+    "id": 259,
+    "text": "Khandaghosh"
+  },
+  {
+    "district_code": 306,
+    "id": 260,
+    "text": "Burdwan Dakshin"
+  },
+  {
+    "district_code": 306,
+    "id": 261,
+    "text": "Raina"
+  },
+  {
+    "district_code": 306,
+    "id": 262,
+    "text": "Jamalpur"
+  },
+  {
+    "district_code": 306,
+    "id": 263,
+    "text": "Monteswar"
+  },
+  {
+    "district_code": 306,
+    "id": 264,
+    "text": "Kalna"
+  },
+  {
+    "district_code": 306,
+    "id": 265,
+    "text": "Memari"
+  },
+  {
+    "district_code": 306,
+    "id": 266,
+    "text": "Burdwan Uttar"
+  },
+  {
+    "district_code": 306,
+    "id": 267,
+    "text": "Bhatar"
+  },
+  {
+    "district_code": 306,
+    "id": 268,
+    "text": "Purbasthali Dakshin"
+  },
+  {
+    "district_code": 306,
+    "id": 269,
+    "text": "Purbasthali Uttar"
+  },
+  {
+    "district_code": 306,
+    "id": 270,
+    "text": "Katwa"
+  },
+  {
+    "district_code": 306,
+    "id": 271,
+    "text": "Ketugram"
+  },
+  {
+    "district_code": 306,
+    "id": 272,
+    "text": "Mongalkote"
+  },
+  {
+    "district_code": 306,
+    "id": 273,
+    "text": "Ausgram"
+  },
+  {
+    "district_code": 306,
+    "id": 274,
+    "text": "Galsi"
+  },
+  {
+    "district_code": 704,
+    "id": 275,
+    "text": "Pandabeswar"
+  },
+  {
+    "district_code": 704,
+    "id": 276,
+    "text": "Durgapur Purba"
+  },
+  {
+    "district_code": 704,
+    "id": 277,
+    "text": "Durgapur Paschim"
+  },
+  {
+    "district_code": 704,
+    "id": 278,
+    "text": "Raniganj"
+  },
+  {
+    "district_code": 704,
+    "id": 279,
+    "text": "Jamuria"
+  },
+  {
+    "district_code": 704,
+    "id": 280,
+    "text": "Asnsol Dakshin"
+  },
+  {
+    "district_code": 704,
+    "id": 281,
+    "text": "Asansol Uttar"
+  },
+  {
+    "district_code": 704,
+    "id": 282,
+    "text": "Kulti"
+  },
+  {
+    "district_code": 704,
+    "id": 283,
+    "text": "Barabani"
+  },
+  {
+    "district_code": 307,
+    "id": 284,
+    "text": "Dubrajpur"
+  },
+  {
+    "district_code": 307,
+    "id": 285,
+    "text": "Suri"
+  },
+  {
+    "district_code": 307,
+    "id": 286,
+    "text": "Bolpur"
+  },
+  {
+    "district_code": 307,
+    "id": 287,
+    "text": "Nanoor"
+  },
+  {
+    "district_code": 307,
+    "id": 288,
+    "text": "Labhpur"
+  },
+  {
+    "district_code": 307,
+    "id": 289,
+    "text": "Sainthia"
+  },
+  {
+    "district_code": 307,
+    "id": 290,
+    "text": "Mayureswar"
+  },
+  {
+    "district_code": 307,
+    "id": 291,
+    "text": "Rampurhat"
+  },
+  {
+    "district_code": 307,
+    "id": 292,
+    "text": "Hansan"
+  },
+  {
+    "district_code": 307,
+    "id": 293,
+    "text": "Nalhati"
+  },
+  {
+    "district_code": 307,
+    "id": 294,
+    "text": "Murarai"
+  },
+  {
+    "district_code": 315,
+    "id": 150,
+    "text": "Jadavpur"
+  },
+  {
+    "district_code": 315,
+    "id": 153,
+    "text": "Behala Purba"
+  },
+  {
+    "district_code": 315,
+    "id": 154,
+    "text": "Behala Paschim"
+  },
+  {
+    "district_code": 314,
+    "id": 14,
+    "text": "Madarihat"
+  }
+]

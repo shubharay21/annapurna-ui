@@ -1,0 +1,55 @@
+{
+  "zones": [
+    {
+      "zoneId": "Z1",
+      "zoneName": "Zone 1",
+      "apiEnvKey": "NEXT_PUBLIC_ZONE_1_API",
+      "districts": [
+        "24 PARAGANAS NORTH",
+        "BANKURA",
+        "DARJEELING",
+        "HOWRAH",
+        "JHARGRAM",
+        "PURULIA"
+      ]
+    },
+    {
+      "zoneId": "Z2",
+      "zoneName": "Zone 2",
+      "apiEnvKey": "NEXT_PUBLIC_ZONE_2_API",
+      "districts": [
+        "24 PARAGANAS SOUTH",
+        "DINAJPUR UTTAR",
+        "KMC",
+        "NADIA",
+        "PASCHIM BARDHAMAN"
+      ]
+    },
+    {
+      "zoneId": "Z3",
+      "zoneName": "Zone 3",
+      "apiEnvKey": "NEXT_PUBLIC_ZONE_3_API",
+      "districts": [
+        "DINAJPUR DAKSHIN",
+        "HOOGHLY",
+        "JALPAIGURI",
+        "KALIMPONG",
+        "MEDINIPUR EAST",
+        "MURSHIDABAD"
+      ]
+    },
+    {
+      "zoneId": "Z4",
+      "zoneName": "Zone 4",
+      "apiEnvKey": "NEXT_PUBLIC_ZONE_4_API",
+      "districts": [
+        "ALIPURDUAR",
+        "BIRBHUM",
+        "COOCHBEHAR",
+        "MALDAH",
+        "MEDINIPUR WEST",
+        "PURBA BARDHAMAN"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "districts": [
+    "24 PARAGANAS NORTH",
+    "24 PARAGANAS SOUTH",
+    "ALIPURDUAR",
+    "BANKURA",
+    "BIRBHUM",
+    "COOCHBEHAR",
+    "DARJEELING",
+    "DINAJPUR DAKSHIN",
+    "DINAJPUR UTTAR",
+    "HOOGHLY",
+    "HOWRAH",
+    "JALPAIGURI",
+    "JHARGRAM",
+    "KALIMPONG",
+    "KMC",
+    "MALDAH",
+    "MEDINIPUR EAST",
+    "MEDINIPUR WEST",
+    "MURSHIDABAD",
+    "NADIA",
+    "PASCHIM BARDHAMAN",
+    "PURBA BARDHAMAN",
+    "PURULIA"
+  ],
+  "genders": ["Male", "Female", "Other"],
+  "categories": ["UR", "EWS", "SC", "ST", "OBC"],
+  "rcTypes": ["AAY", "PHH", "SPHH", "RKSY-I", "RKSY-II", "Non-Subsidized"],
+  "liftingStatuses": ["Lifting Regularly", "Not Lifting", "Surrendered"],
+  "landOwnershipTypes": ["Own", "Leased", "Both"],
+  "electricityProviders": ["WBSEDCL", "CESC"],
+  "employmentNatures": [
+    "Government Sector",
+    "Salaried, in Private Sector",
+    "Formal Sector Self-Employed (Entrepreneur/Business/Proprietor/etc.)",
+    "Part-time job",
+    "Informal Sector Self-Employed (Artisan/Craftsman/Farmer/etc.)",
+    "Housewife",
+    "Unemployed",
+    "Others"
+  ],
+  "documentTypes": [
+    { "value": "KCC", "label": "Kisan Credit Card (KCC)" },
+    { "value": "KCC ARD", "label": "KCC ARD" },
+    { "value": "Artisan Credit Card", "label": "Artisan Credit Card" },
+    { "value": "MJCC", "label": "MGNREGA Job Card (MJCC)" },
+    { "value": "Student CC", "label": "Student Credit Card" },
+    { "value": "Others", "label": "Others" }
+  ],
+  "schoolTypes": [
+    "Govt School",
+    "Govt Aided School",
+    "Govt Sponsored School",
+    "Madrasah",
+    "Recognized Private School",
+    "Unrecognized Private School",
+    "Others"
+  ],
+  "benefitSchemes": [
+    "Lakshmir Bhandar",
+    "Swasthya Sathi",
+    "Kanyashree",
+    "Rupashree",
+    "Krishak Bandhu",
+    "Old Age Pension",
+    "Disability Pension",
+    "Widow Pension",
+    "PM-Kisan",
+    "Others"
+  ]
+}
