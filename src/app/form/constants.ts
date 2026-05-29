@@ -72,7 +72,6 @@ export const SECTIONS = [
   { key: "ration", label: "Ration Card / Food Subsidy", icon: "shopping_cart" },
   { key: "assets", label: "Assets", icon: "home" },
   { key: "income", label: "Income / Profession", icon: "payments" },
-
   { key: "identity", label: "Identity Docs", icon: "badge" },
   { key: "schemes", label: "Govt Schemes", icon: "account_balance" },
 ];

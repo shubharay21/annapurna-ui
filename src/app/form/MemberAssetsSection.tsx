@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -36,6 +37,32 @@ interface Props {
 
 export default function MemberAssetsSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = (member.documents as any) || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => (member.documents as any)?.[docName] || null;
+
+  // Handle dynamic vehicles
+  const vehicleCount = member.vehicleCount || 1;
+  const vehicleModels = (member.vehicleModel || "").split(",").map(s => s.trim());
+  const vehicleRegs = (member.vehicleRegistrationNo || "").split(",").map(s => s.trim());
+
+  const updateVehicle = (index: number, field: "model" | "reg", value: string) => {
+    if (field === "model") {
+      const newModels = [...vehicleModels];
+      while (newModels.length <= index) newModels.push("");
+      newModels[index] = value;
+      // Filter out trailing empty spaces if they aren't filled yet
+      updateMember(activeTab, "vehicleModel", newModels.join(","));
+    } else {
+      const newRegs = [...vehicleRegs];
+      while (newRegs.length <= index) newRegs.push("");
+      newRegs[index] = value;
+      updateMember(activeTab, "vehicleRegistrationNo", newRegs.join(","));
+    }
+  };
 
   return (
     <>
@@ -118,6 +145,9 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
                   onChange={e => updateMember(activeTab, "landholdingSizeDecimals", parseFloat(e.target.value) || null)} 
                 />
               </div>
+              <div className="mt-4 md:col-span-2">
+                <FileUpload label={t("Upload Land Documents")} value={getDoc("landDocuments")} onChange={(f) => handleDocChange("landDocuments", f)} />
+              </div>
             </div>
           )}
         </div>
@@ -143,15 +173,35 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
             <>
               <div>
                 <label className={labelCls}>{t("Number of Vehicles")}</label>
-                <input type="number" className={inputCls} value={member.vehicleCount || ""} onChange={e => updateMember(activeTab, "vehicleCount", parseInt(e.target.value) || null)} />
+                <input type="number" min="1" max="50" className={inputCls} value={member.vehicleCount || ""} onChange={e => {
+                  const val = parseInt(e.target.value);
+                  updateMember(activeTab, "vehicleCount", isNaN(val) ? null : val);
+                }} />
               </div>
-              <div>
-                <label className={labelCls}>{t("Vehicle Model")}</label>
-                <input type="text" className={inputCls} placeholder="e.g. Maruti Swift, Mahindra Tractor" value={member.vehicleModel || ""} onChange={e => updateMember(activeTab, "vehicleModel", e.target.value)} />
-              </div>
-              <div className="md:col-span-2">
-                <label className={labelCls}>{t("Vehicle Registration No(s).")}</label>
-                <input type="text" className={inputCls} value={member.vehicleRegistrationNo || ""} onChange={e => updateMember(activeTab, "vehicleRegistrationNo", e.target.value)} />
+              <div className="md:col-span-2 space-y-4">
+                {Array.from({ length: member.vehicleCount || 0 }).map((_, i) => (
+                  <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+                    <div>
+                      <label className={labelCls}>{t("Vehicle Model")}{member.vehicleCount && member.vehicleCount > 1 ? ` ${i + 1}` : ""}</label>
+                      <input 
+                        type="text" 
+                        className={inputCls} 
+                        placeholder="e.g. Maruti Swift, Mahindra Tractor" 
+                        value={vehicleModels[i] || ""} 
+                        onChange={e => updateVehicle(i, "model", e.target.value)} 
+                      />
+                    </div>
+                    <div>
+                      <label className={labelCls}>{t("Vehicle Registration No.")}{member.vehicleCount && member.vehicleCount > 1 ? ` ${i + 1}` : ""}</label>
+                      <input 
+                        type="text" 
+                        className={inputCls} 
+                        value={vehicleRegs[i] || ""} 
+                        onChange={e => updateVehicle(i, "reg", e.target.value)} 
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </>
           )}
@@ -189,6 +239,9 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
                 <label className={labelCls}>Annual Premium (₹)</label>
                 <input type="number" className={inputCls} value={member.healthInsuranceAnnualPremium || ""} onChange={e => updateMember(activeTab, "healthInsuranceAnnualPremium", parseFloat(e.target.value) || null)} />
               </div>
+              <div className="md:col-span-2">
+                <FileUpload label={t("Upload Health Insurance Document (including Swasthya Sathi, Ayushman Bharat)")} value={getDoc("healthInsurance")} onChange={(f) => handleDocChange("healthInsurance", f)} />
+              </div>
             </>
           )}
         </div>
@@ -206,10 +259,15 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
               </select>
             </div>
             {member.vaccinationStatus === "Yes" && (
-              <div>
-                <label className={labelCls}>{t("Vaccination Card ID")}</label>
-                <input type="text" className={inputCls} value={member.vaccinationCardId || ""} onChange={e => updateMember(activeTab, "vaccinationCardId", e.target.value)} />
-              </div>
+              <>
+                <div>
+                  <label className={labelCls}>{t("Vaccination Card ID")}</label>
+                  <input type="text" className={inputCls} value={member.vaccinationCardId || ""} onChange={e => updateMember(activeTab, "vaccinationCardId", e.target.value)} />
+                </div>
+                <div className="md:col-span-2">
+                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} />
+                </div>
+              </>
             )}
             {member.vaccinationStatus === "Not Vaccinated" && (
               <div>

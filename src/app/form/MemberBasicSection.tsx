@@ -39,9 +39,16 @@ interface Props {
 import { useLanguage } from "@/app/i18n/LanguageContext";
 import { useMasterData } from "@/hooks/useMasterData";
 import IfscSearch from "./IfscSearch";
+import FileUpload from "@/components/form/FileUpload";
 
 export default function MemberBasicSection({ member, activeTab, updateMember, familyDistrict }: Props) {
   const { t } = useLanguage();
+  
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = member.documents || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => member.documents?.[docName] || null;
   
   // Load local bank IFSC master data
   const { data: bankData, loading: isFetchingBank } = useMasterData("bank-ifsc-master.json");
@@ -155,6 +162,11 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
               <option value="Others">{t("Others")}</option>
             </select>
           </div>
+          {member.socialCategory && member.socialCategory !== "UR" && (
+            <div>
+              <FileUpload label={t("Upload Caste / EWS Certificate")} value={getDoc("casteCertificate")} onChange={(f) => handleDocChange("casteCertificate", f)} />
+            </div>
+          )}
 
           <div>
             <div className="flex items-center justify-between mb-1">
@@ -170,6 +182,9 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
               )}
             </div>
             <input data-testid="member-aadhaar" type="text" className={inputCls} disabled={member.aadhaarNo === "N/A"} value={member.aadhaarNo} maxLength={12} onChange={e => updateMember(activeTab, "aadhaarNo", e.target.value.replace(/\D/g, ""))} />
+          </div>
+          <div>
+            <FileUpload label={t("Upload Aadhaar Document")} value={getDoc("aadhaar")} onChange={(f) => handleDocChange("aadhaar", f)} />
           </div>
           {member.isHoF && (
             <div>
@@ -188,6 +203,9 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
           <div>
             <label className={labelCls}>{t("EPIC No.")}</label>
             <input type="text" className={inputCls} value={member.epicNo || ""} onChange={e => updateMember(activeTab, "epicNo", e.target.value.replace(/[^a-zA-Z0-9]/g, ""))} />
+          </div>
+          <div>
+            <FileUpload label={t("Upload EPIC Document")} value={getDoc("epic")} onChange={(f) => handleDocChange("epic", f)} />
           </div>
           <div>
             <label className={labelCls}>{t("Assembly Constituency No.")}</label>
@@ -230,6 +248,9 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
               placeholder={t("e.g. State Bank of India")} 
               value={member.bankName || ""} 
             />
+          </div>
+          <div className="md:col-span-2">
+            <FileUpload label={t("Upload Bank Passbook / Document")} value={getDoc("bankAccount")} onChange={(f) => handleDocChange("bankAccount", f)} />
           </div>
         </div>
       </section>

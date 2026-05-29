@@ -314,9 +314,18 @@ function FormWizardV2Inner() {
       }
 
       if (m.hasFourWheeler) {
-        if (!m.vehicleCount) errors.push(`${prefix}: Number of Vehicles is required.`);
-        if (!m.vehicleModel || (m.vehicleModel as string).trim() === "") errors.push(`${prefix}: Vehicle Model is required.`);
-        if (!m.vehicleRegistrationNo || (m.vehicleRegistrationNo as string).trim() === "") errors.push(`${prefix}: Vehicle Registration No(s). is required.`);
+        if (!m.vehicleCount) {
+          errors.push(`${prefix}: Number of Vehicles is required.`);
+        } else {
+          const models = (m.vehicleModel as string || "").split(",").map(s => s.trim()).filter(s => s !== "");
+          const regs = (m.vehicleRegistrationNo as string || "").split(",").map(s => s.trim()).filter(s => s !== "");
+          if (models.length < m.vehicleCount) {
+            errors.push(`${prefix}: Vehicle Model is required for all vehicles.`);
+          }
+          if (regs.length < m.vehicleCount) {
+            errors.push(`${prefix}: Vehicle Registration No. is required for all vehicles.`);
+          }
+        }
       }
 
       if (m.hasHealthInsurance) {

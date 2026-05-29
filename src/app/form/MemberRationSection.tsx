@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -25,6 +26,12 @@ interface Props {
 
 export default function MemberRationSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = (member.documents as any) || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => (member.documents as any)?.[docName] || null;
 
   return (
     <>
@@ -88,6 +95,9 @@ export default function MemberRationSection({ member, activeTab, updateMember }:
               <div>
                 <label className={labelCls}>{t("Ration Card No.")}</label>
                 <input type="text" className={inputCls} value={member.digitalRationCardNo || ""} onChange={e => updateMember(activeTab, "digitalRationCardNo", e.target.value.replace(/\D/g, ""))} />
+              </div>
+              <div className="md:col-span-2">
+                <FileUpload label={t("Upload Digital Ration Card")} value={getDoc("digitalRationCard")} onChange={(f) => handleDocChange("digitalRationCard", f)} />
               </div>
             </div>
           )}

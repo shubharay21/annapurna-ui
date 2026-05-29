@@ -1,4 +1,5 @@
 "use client";
+import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -37,6 +38,12 @@ interface Props {
 }
 
 export default function MemberOtherSections({ member, activeTab, activeSection, updateMember }: Props) {
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = (member.documents as any) || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => (member.documents as any)?.[docName] || null;
+
   return (
     <>
       {/* Section: Identity Documents */}
@@ -69,6 +76,11 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                     <input type="text" className={inputCls} value={member.caaCertificateNo || ""} onChange={e => updateMember(activeTab, "caaCertificateNo", e.target.value)} />
                   </div>
                 )}
+                {member.caaApplicationStatus !== "Not Applicable" && (
+                  <div className="md:col-span-2">
+                    <FileUpload label="Upload CAA Application / Certificate Document" value={getDoc("caaApplication")} onChange={(f) => handleDocChange("caaApplication", f)} />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -90,50 +102,59 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
 
                 {Array.isArray(member.otherSpecificIds) && member.otherSpecificIds.map((specId, idx) => (
-                  <div key={idx} className="md:col-span-2 grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end bg-surface-container-low p-4 rounded-lg border border-outline-variant">
-                    <div className="w-full">
-                      <label className={labelCls}>ID Type</label>
-                      <select
-                        className={inputCls}
-                        value={specId.idType || ""}
-                        onChange={e => {
+                  <div key={idx} className="md:col-span-2 bg-surface-container-low p-4 rounded-lg border border-outline-variant space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                      <div className="w-full">
+                        <label className={labelCls}>ID Type</label>
+                        <select
+                          className={inputCls}
+                          value={specId.idType || ""}
+                          onChange={e => {
+                            const newList = [...member.otherSpecificIds!];
+                            newList[idx] = { ...newList[idx], idType: e.target.value };
+                            updateMember(activeTab, "otherSpecificIds", newList);
+                          }}
+                        >
+                          <option value="">Select ID Type...</option>
+                          <option value="KCC">KCC</option>
+                          <option value="KCC ARD">KCC ARD</option>
+                          <option value="Artisan Credit Card">Artisan Credit Card</option>
+                          <option value="MJCC">MJCC</option>
+                          <option value="Student CC">Student CC</option>
+                        </select>
+                      </div>
+                      <div className="w-full">
+                        <label className={labelCls}>Date of issue</label>
+                        <input
+                          type="date"
+                          className={inputCls}
+                          value={specId.issueDate || ""}
+                          onChange={e => {
+                            const newList = [...member.otherSpecificIds!];
+                            newList[idx] = { ...newList[idx], issueDate: e.target.value };
+                            updateMember(activeTab, "otherSpecificIds", newList);
+                          }}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        className="h-11 px-4 text-error bg-error/10 hover:bg-error/20 rounded font-medium transition-colors"
+                        onClick={() => {
                           const newList = [...member.otherSpecificIds!];
-                          newList[idx] = { ...newList[idx], idType: e.target.value };
+                          newList.splice(idx, 1);
                           updateMember(activeTab, "otherSpecificIds", newList);
                         }}
                       >
-                        <option value="">Select ID Type...</option>
-                        <option value="KCC">KCC</option>
-                        <option value="KCC ARD">KCC ARD</option>
-                        <option value="Artisan Credit Card">Artisan Credit Card</option>
-                        <option value="MJCC">MJCC</option>
-                        <option value="Student CC">Student CC</option>
-                      </select>
+                        Remove
+                      </button>
                     </div>
-                    <div className="w-full">
-                      <label className={labelCls}>Date of issue</label>
-                      <input
-                        type="date"
-                        className={inputCls}
-                        value={specId.issueDate || ""}
-                        onChange={e => {
-                          const newList = [...member.otherSpecificIds!];
-                          newList[idx] = { ...newList[idx], issueDate: e.target.value };
-                          updateMember(activeTab, "otherSpecificIds", newList);
-                        }}
+                    <div>
+                      <FileUpload 
+                        label={`Upload Document for ${specId.idType || "this ID"}`} 
+                        value={getDoc(`otherSpecificId_${idx}`)} 
+                        onChange={(f) => handleDocChange(`otherSpecificId_${idx}`, f)} 
                       />
                     </div>
-                    <button
-                      type="button"
-                      className="h-11 px-4 text-error bg-error/10 hover:bg-error/20 rounded font-medium transition-colors"
-                      onClick={() => {
-                        const newList = [...member.otherSpecificIds!];
-                        newList.splice(idx, 1);
-                        updateMember(activeTab, "otherSpecificIds", newList);
-                      }}
-                    >
-                      Remove
-                    </button>
                   </div>
                 ))}
               </div>
@@ -151,10 +172,15 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                   </select>
                 </div>
                 {member.sir2026TribunalStatus === "Yes" && (
-                  <div>
-                    <label className={labelCls}>Case Details</label>
-                    <input type="text" className={inputCls} value={member.sir2026CaseDetails || ""} onChange={e => updateMember(activeTab, "sir2026CaseDetails", e.target.value)} />
-                  </div>
+                  <>
+                    <div>
+                      <label className={labelCls}>Case Details</label>
+                      <input type="text" className={inputCls} value={member.sir2026CaseDetails || ""} onChange={e => updateMember(activeTab, "sir2026CaseDetails", e.target.value)} />
+                    </div>
+                    <div className="md:col-span-2">
+                      <FileUpload label="Upload SIR Application Document" value={getDoc("sirApplication")} onChange={(f) => handleDocChange("sirApplication", f)} />
+                    </div>
+                  </>
                 )}
               </div>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -46,6 +47,12 @@ interface Props {
 
 export default function MemberIncomeSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = (member.documents as any) || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => (member.documents as any)?.[docName] || null;
 
   if (member.isChild) {
     return (
@@ -108,6 +115,9 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
               <label className={labelCls}>{t("PAN No.")}</label>
               <input type="text" className={inputCls} value={member.panNo || ""} onChange={e => updateMember(activeTab, "panNo", e.target.value.toUpperCase())} />
             </div>
+            <div className="md:col-span-2">
+              <FileUpload label={t("Upload PAN Document")} value={getDoc("pan")} onChange={(f) => handleDocChange("pan", f)} />
+            </div>
           </div>
         )}
 
@@ -139,6 +149,9 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
                 </label>
               );
             })}
+          </div>
+          <div className="mt-6">
+            <FileUpload label={t("Upload Employment Document")} value={getDoc("employmentDocument")} onChange={(f) => handleDocChange("employmentDocument", f)} />
           </div>
         </div>
 
@@ -213,9 +226,14 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
             </div>
 
             {member.isGovtPensioner === true && (
-              <div className="mt-4">
-                <label className={labelCls}>{t("Member No. of government pensioner")}</label>
-                <input type="text" className={inputCls} value={member.govtPensionerMemberNo || ""} onChange={e => updateMember(activeTab, "govtPensionerMemberNo", e.target.value)} />
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+                <div>
+                  <label className={labelCls}>{t("Member No. of government pensioner")}</label>
+                  <input type="text" className={inputCls} value={member.govtPensionerMemberNo || ""} onChange={e => updateMember(activeTab, "govtPensionerMemberNo", e.target.value)} />
+                </div>
+                <div>
+                  <FileUpload label={t("Upload Pension Document")} value={getDoc("pensionDocument")} onChange={(f) => handleDocChange("pensionDocument", f)} />
+                </div>
               </div>
             )}
           </div>
