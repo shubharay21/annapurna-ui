@@ -121,6 +121,9 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                           <option value="Artisan Credit Card">Artisan Credit Card</option>
                           <option value="MJCC">MJCC</option>
                           <option value="Student CC">Student CC</option>
+                          <option value="Disability Certificate">Disability Certificate</option>
+                          <option value="Fisherman Registration Card">Fisherman Registration Card</option>
+                          <option value="Others">Others</option>
                         </select>
                       </div>
                       <div className="w-full">

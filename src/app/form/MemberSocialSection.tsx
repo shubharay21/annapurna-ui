@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -29,6 +30,12 @@ interface Props {
 
 export default function MemberSocialSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+
+  const handleDocChange = (docName: string, file: File | null) => {
+    const currentDocs = (member.documents as any) || {};
+    updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
+  };
+  const getDoc = (docName: string) => (member.documents as any)?.[docName] || null;
 
   if (!member.isChild) {
     return null;
@@ -123,6 +130,9 @@ export default function MemberSocialSection({ member, activeTab, updateMember }:
               <div className="mt-2">
                 <label className={labelCls}>{t("Vaccination Card ID")}</label>
                 <input type="text" className={inputCls} value={member.vaccinationCardId || ""} onChange={e => updateMember(activeTab, "vaccinationCardId", e.target.value)} />
+                <div className="mt-4">
+                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} />
+                </div>
               </div>
             )}
 
