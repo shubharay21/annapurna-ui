@@ -205,6 +205,8 @@ function FormWizardV2Inner() {
     setValidationErrors([]);
     const errors: string[] = [];
 
+    const hasDoc = (key: string) => currentMember && (currentMember as any).documents && (currentMember as any).documents[key] instanceof File;
+
     // Check document sizes
     if (currentMember && (currentMember as any).documents && Array.isArray(documentMasterData)) {
       const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
@@ -313,6 +315,11 @@ function FormWizardV2Inner() {
         if (m.bankAccountNo && !validateBankAccount(m.bankAccountNo)) errors.push(`${prefix}: Bank Account number must be between 9 and 18 digits.`);
         if (m.ifscCode && !validateIfsc(m.ifscCode)) errors.push(`${prefix}: IFSC Code format is invalid.`);
       }
+
+      if (m.aadhaarNo && m.aadhaarNo !== "N/A" && !hasDoc("aadhaar")) errors.push(`${prefix}: Aadhaar Document is required.`);
+      if (m.socialCategory && m.socialCategory !== "UR" && !hasDoc("casteCertificate")) errors.push(`${prefix}: Caste / EWS Certificate is required.`);
+      if ((m.epicNo || m.isChild === false) && !hasDoc("epic")) errors.push(`${prefix}: EPIC Document is required.`);
+      if ((m.bankAccountNo || m.isChild === false) && !hasDoc("bankAccount")) errors.push(`${prefix}: Bank Passbook / Document is required.`);
     }
 
     // Ration section validations
@@ -333,6 +340,10 @@ function FormWizardV2Inner() {
 
       if (m.liftingMonthlyRation === null || m.liftingMonthlyRation === undefined) {
         errors.push(`${prefix}: Please select whether family is lifting monthly ration.`);
+      }
+
+      if (m.hasDigitalRationCard === true && !hasDoc("digitalRationCard")) {
+        errors.push(`${prefix}: Digital Ration Card Document is required.`);
       }
     }
 
@@ -383,6 +394,10 @@ function FormWizardV2Inner() {
           errors.push(`${prefix}: Reason for skipping or Last date is required.`);
         }
       }
+
+      if (m.ownsLand === true && !hasDoc("landDocuments")) errors.push(`${prefix}: Land Documents are required.`);
+      if (m.hasHealthInsurance === true && !hasDoc("healthInsurance")) errors.push(`${prefix}: Health Insurance Document is required.`);
+      if (m.isChild && m.vaccinationStatus === "Yes" && !hasDoc("vaccinationCard")) errors.push(`${prefix}: Vaccination Card Document is required.`);
     }
 
     // Income section validations
@@ -436,6 +451,10 @@ function FormWizardV2Inner() {
             errors.push(`${prefix}: GSTIN is required.`);
           }
         }
+
+        if (m.hasPanCard === true && !hasDoc("pan")) errors.push(`${prefix}: PAN Document is required.`);
+        if (m.natureOfEmployment && (m.natureOfEmployment as string[]).length > 0 && !hasDoc("employmentDocument")) errors.push(`${prefix}: Employment Document is required.`);
+        if (m.isGovtPensioner === true && !hasDoc("pensionDocument")) errors.push(`${prefix}: Pension Document is required.`);
       }
     }
 
@@ -470,6 +489,20 @@ function FormWizardV2Inner() {
         if (!m.sir2026CaseDetails || (m.sir2026CaseDetails as string).trim() === "") {
           errors.push(`${prefix}: Case Details are required for SIR 2026 pending cases.`);
         }
+      }
+
+      if ((m.caaApplicationStatus === "Applied" || m.caaApplicationStatus === "Issued") && !hasDoc("caaApplication")) {
+        errors.push(`${prefix}: CAA Application / Certificate Document is required.`);
+      }
+      if (m.sir2026TribunalStatus === "Yes" && !hasDoc("sirApplication")) {
+        errors.push(`${prefix}: SIR Application Document is required.`);
+      }
+      if (Array.isArray(m.otherSpecificIds)) {
+        m.otherSpecificIds.forEach((idObj: any, idx: number) => {
+          if (!hasDoc(`otherSpecificId_${idx}`)) {
+            errors.push(`${prefix}: Document is required for Other Specific ID #${idx + 1}.`);
+          }
+        });
       }
     }
 
@@ -525,6 +558,8 @@ function FormWizardV2Inner() {
         } else if ((m.vaccinationStatus === "No" || m.vaccinationStatus === "Not Vaccinated") && (!m.vaccinationSkipReasonOrDate || (m.vaccinationSkipReasonOrDate as string).trim() === "")) {
           errors.push(`${prefix}: Last vaccination date / reason for skip is required.`);
         }
+        
+        if (m.vaccinationStatus === "Yes" && !hasDoc("vaccinationCard")) errors.push(`${prefix}: Vaccination Card Document is required.`);
       }
     }
 
@@ -646,6 +681,38 @@ function FormWizardV2Inner() {
                 errors.push(`${prefix}: ${doc_name} document size exceeds maximum limit of ${maxSize}KB.`);
               }
             }
+          }
+        });
+      }
+
+      // Check document presence
+      const hasDoc = (key: string) => (m as any).documents && (m as any).documents[key] instanceof File;
+      
+      if (m.aadhaarNo && m.aadhaarNo !== "N/A" && !hasDoc("aadhaar")) errors.push(`${prefix}: Aadhaar Document is required.`);
+      if (m.socialCategory && m.socialCategory !== "UR" && !hasDoc("casteCertificate")) errors.push(`${prefix}: Caste / EWS Certificate is required.`);
+      if ((m.epicNo || m.isChild === false) && !hasDoc("epic")) errors.push(`${prefix}: EPIC Document is required.`);
+      if ((m.bankAccountNo || m.isChild === false) && !hasDoc("bankAccount")) errors.push(`${prefix}: Bank Passbook / Document is required.`);
+      if (m.hasDigitalRationCard === true && !hasDoc("digitalRationCard")) errors.push(`${prefix}: Digital Ration Card Document is required.`);
+      if (m.ownsLand === true && !hasDoc("landDocuments")) errors.push(`${prefix}: Land Documents are required.`);
+      if (m.hasHealthInsurance === true && !hasDoc("healthInsurance")) errors.push(`${prefix}: Health Insurance Document is required.`);
+      if (m.isChild && m.vaccinationStatus === "Yes" && !hasDoc("vaccinationCard")) errors.push(`${prefix}: Vaccination Card Document is required.`);
+      
+      if (!m.isChild) {
+        if (m.hasPanCard === true && !hasDoc("pan")) errors.push(`${prefix}: PAN Document is required.`);
+        if (m.natureOfEmployment && (m.natureOfEmployment as string[]).length > 0 && !hasDoc("employmentDocument")) errors.push(`${prefix}: Employment Document is required.`);
+        if (m.isGovtPensioner === true && !hasDoc("pensionDocument")) errors.push(`${prefix}: Pension Document is required.`);
+      }
+
+      if ((m.caaApplicationStatus === "Applied" || m.caaApplicationStatus === "Issued") && !hasDoc("caaApplication")) {
+        errors.push(`${prefix}: CAA Application / Certificate Document is required.`);
+      }
+      if (m.sir2026TribunalStatus === "Yes" && !hasDoc("sirApplication")) {
+        errors.push(`${prefix}: SIR Application Document is required.`);
+      }
+      if (Array.isArray(m.otherSpecificIds)) {
+        m.otherSpecificIds.forEach((idObj: any, idx: number) => {
+          if (!hasDoc(`otherSpecificId_${idx}`)) {
+            errors.push(`${prefix}: Document is required for Other Specific ID #${idx + 1}.`);
           }
         });
       }

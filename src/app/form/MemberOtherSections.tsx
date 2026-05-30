@@ -21,7 +21,7 @@ interface Member {
   caaApplicationStatus: string;
   caaApplicationNo: string;
   caaCertificateNo: string;
-  otherSpecificIds?: { idType: string; issueDate: string }[];
+  otherSpecificIds?: { idType: string; idNumber: string; issueDate: string; issuingAuthority: string; }[];
   sir2026TribunalStatus: string;
   hasHealthInsurance: boolean;
   healthInsuranceType: string;
@@ -96,7 +96,7 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                   className="px-3 py-1.5 text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors"
                   onClick={() => {
                     const currentList = Array.isArray(member.otherSpecificIds) ? member.otherSpecificIds : [];
-                    updateMember(activeTab, "otherSpecificIds", [...currentList, { idType: "", issueDate: "" }]);
+                    updateMember(activeTab, "otherSpecificIds", [...currentList, { idType: "", idNumber: "", issueDate: "", issuingAuthority: "" }]);
                   }}
                 >
                   + Add ID
@@ -106,7 +106,7 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
 
                 {Array.isArray(member.otherSpecificIds) && member.otherSpecificIds.map((specId, idx) => (
                   <div key={idx} className="md:col-span-2 bg-surface-container-low p-4 rounded-lg border border-outline-variant space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                       <div className="w-full">
                         <label className={labelCls}>ID Type</label>
                         <select
@@ -130,6 +130,19 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                         </select>
                       </div>
                       <div className="w-full">
+                        <label className={labelCls}>No. of ID</label>
+                        <input
+                          type="text"
+                          className={inputCls}
+                          value={specId.idNumber || ""}
+                          onChange={e => {
+                            const newList = [...member.otherSpecificIds!];
+                            newList[idx] = { ...newList[idx], idNumber: e.target.value };
+                            updateMember(activeTab, "otherSpecificIds", newList);
+                          }}
+                        />
+                      </div>
+                      <div className="w-full">
                         <label className={labelCls}>Date of issue</label>
                         <input
                           type="date"
@@ -138,6 +151,19 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                           onChange={e => {
                             const newList = [...member.otherSpecificIds!];
                             newList[idx] = { ...newList[idx], issueDate: e.target.value };
+                            updateMember(activeTab, "otherSpecificIds", newList);
+                          }}
+                        />
+                      </div>
+                      <div className="w-full md:col-span-2">
+                        <label className={labelCls}>Issuing authority</label>
+                        <input
+                          type="text"
+                          className={inputCls}
+                          value={specId.issuingAuthority || ""}
+                          onChange={e => {
+                            const newList = [...member.otherSpecificIds!];
+                            newList[idx] = { ...newList[idx], issuingAuthority: e.target.value };
                             updateMember(activeTab, "otherSpecificIds", newList);
                           }}
                         />

@@ -21,7 +21,7 @@ export const DEFAULT_MEMBER = (isHoF = false) => ({
   caaApplicationStatus: "Not Applicable",
   caaApplicationNo: "",
   caaCertificateNo: "",
-  otherSpecificIds: [] as { idType: string, issueDate: string }[],
+  otherSpecificIds: [] as { idType: string, idNumber: string, issueDate: string, issuingAuthority: string }[],
   sir2026TribunalStatus: "Not Applicable",
   sir2026CaseDetails: "",
   hasThreePuccaRooms: null as boolean | null,
