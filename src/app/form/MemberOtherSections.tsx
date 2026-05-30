@@ -1,5 +1,7 @@
 "use client";
 import FileUpload from "@/components/form/FileUpload";
+import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 
 const inputCls =
   "w-full h-11 px-4 border border-outline-variant rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all bg-white text-on-surface text-body-md";
@@ -38,6 +40,7 @@ interface Props {
 }
 
 export default function MemberOtherSections({ member, activeTab, activeSection, updateMember }: Props) {
+  const { data: documentMasterData } = useMasterData("document-master.json");
   const handleDocChange = (docName: string, file: File | null) => {
     const currentDocs = (member.documents as any) || {};
     updateMember(activeTab, 'documents', { ...currentDocs, [docName]: file });
@@ -78,7 +81,7 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                 )}
                 {member.caaApplicationStatus !== "Not Applicable" && (
                   <div className="md:col-span-2">
-                    <FileUpload label="Upload CAA Application / Certificate Document" value={getDoc("caaApplication")} onChange={(f) => handleDocChange("caaApplication", f)} />
+                    <FileUpload label="Upload CAA Application / Certificate Document" value={getDoc("caaApplication")} onChange={(f) => handleDocChange("caaApplication", f)} {...getDocLimits("caaApplication", documentMasterData)} />
                   </div>
                 )}
               </div>
@@ -156,6 +159,7 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                         label={`Upload Document for ${specId.idType || "this ID"}`} 
                         value={getDoc(`otherSpecificId_${idx}`)} 
                         onChange={(f) => handleDocChange(`otherSpecificId_${idx}`, f)} 
+                        {...getDocLimits(`otherSpecificId_${idx}`, documentMasterData)}
                       />
                     </div>
                   </div>
@@ -181,7 +185,7 @@ export default function MemberOtherSections({ member, activeTab, activeSection, 
                       <input type="text" className={inputCls} value={member.sir2026CaseDetails || ""} onChange={e => updateMember(activeTab, "sir2026CaseDetails", e.target.value)} />
                     </div>
                     <div className="md:col-span-2">
-                      <FileUpload label="Upload SIR Application Document" value={getDoc("sirApplication")} onChange={(f) => handleDocChange("sirApplication", f)} />
+                      <FileUpload label="Upload SIR Application Document" value={getDoc("sirApplication")} onChange={(f) => handleDocChange("sirApplication", f)} {...getDocLimits("sirApplication", documentMasterData)} />
                     </div>
                   </>
                 )}

@@ -22,9 +22,27 @@ import MobileNav from "@/components/layout/MobileNav";
 import MemberTabs from "@/components/form/MemberTabs";
 import FooterActions from "@/components/form/FooterActions";
 import dynamic from "next/dynamic";
+import { useMasterData } from "@/hooks/useMasterData";
+
+const docKeyMapping: Record<string, number> = {
+  "aadhaar": 101,
+  "epic": 102,
+  "pan": 103,
+  "bankAccount": 104,
+  "digitalRationCard": 105,
+  "casteCertificate": 106,
+  "healthInsurance": 107,
+  "landDocuments": 108,
+  "vaccinationCard": 109,
+  "sirApplication": 110,
+  "caaApplication": 111,
+  "employmentDocument": 112,
+  "pensionDocument": 113,
+};
 
 function FormWizardV2Inner() {
   const { t } = useLanguage();
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -186,6 +204,28 @@ function FormWizardV2Inner() {
   async function handleSaveAndContinue() {
     setValidationErrors([]);
     const errors: string[] = [];
+
+    // Check document sizes
+    if (currentMember && (currentMember as any).documents && Array.isArray(documentMasterData)) {
+      const prefix = currentMember.isHoF ? "Head of Family" : `Member ${activeTab + 1}`;
+      Object.entries((currentMember as any).documents).forEach(([key, file]) => {
+        if (file && file instanceof File) {
+          let docTypeId = docKeyMapping[key];
+          if (key.startsWith('otherSpecificId_')) docTypeId = 114;
+          const docMaster = documentMasterData.find((d: any) => d.doc_type_id === docTypeId);
+          if (docMaster) {
+            const sizeKB = file.size / 1024;
+            const { minSize, maxSize, doc_name } = docMaster;
+            if (minSize && sizeKB < minSize) {
+              errors.push(`${prefix}: ${doc_name} document size must be at least ${minSize}KB.`);
+            }
+            if (maxSize && sizeKB > maxSize) {
+              errors.push(`${prefix}: ${doc_name} document size exceeds maximum limit of ${maxSize}KB.`);
+            }
+          }
+        }
+      });
+    }
 
     // Family / Address section validations
     if (activeSection === "family") {
@@ -588,6 +628,27 @@ function FormWizardV2Inner() {
       if (m.epicNo && !validateEpic(m.epicNo)) errors.push(`${prefix}: EPIC (Voter ID) number is invalid.`);
       if (m.bankAccountNo && !validateBankAccount(m.bankAccountNo)) errors.push(`${prefix}: Bank Account number must be between 9 and 18 digits.`);
       if (m.ifscCode && !validateIfsc(m.ifscCode)) errors.push(`${prefix}: IFSC Code format is invalid.`);
+
+      // Check document sizes
+      if ((m as any).documents && Array.isArray(documentMasterData)) {
+        Object.entries((m as any).documents).forEach(([key, file]) => {
+          if (file && file instanceof File) {
+            let docTypeId = docKeyMapping[key];
+            if (key.startsWith('otherSpecificId_')) docTypeId = 114;
+            const docMaster = documentMasterData.find((d: any) => d.doc_type_id === docTypeId);
+            if (docMaster) {
+              const sizeKB = file.size / 1024;
+              const { minSize, maxSize, doc_name } = docMaster;
+              if (minSize && sizeKB < minSize) {
+                errors.push(`${prefix}: ${doc_name} document size must be at least ${minSize}KB.`);
+              }
+              if (maxSize && sizeKB > maxSize) {
+                errors.push(`${prefix}: ${doc_name} document size exceeds maximum limit of ${maxSize}KB.`);
+              }
+            }
+          }
+        });
+      }
     });
 
     if (errors.length > 0) {

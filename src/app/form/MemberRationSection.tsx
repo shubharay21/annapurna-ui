@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
@@ -26,6 +28,7 @@ interface Props {
 
 export default function MemberRationSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   const handleDocChange = (docName: string, file: File | null) => {
     const currentDocs = (member.documents as any) || {};
@@ -97,7 +100,7 @@ export default function MemberRationSection({ member, activeTab, updateMember }:
                 <input type="text" className={inputCls} value={member.digitalRationCardNo || ""} onChange={e => updateMember(activeTab, "digitalRationCardNo", e.target.value.replace(/\D/g, ""))} />
               </div>
               <div className="md:col-span-2">
-                <FileUpload label={t("Upload Digital Ration Card")} value={getDoc("digitalRationCard")} onChange={(f) => handleDocChange("digitalRationCard", f)} />
+                <FileUpload label={t("Upload Digital Ration Card")} value={getDoc("digitalRationCard")} onChange={(f) => handleDocChange("digitalRationCard", f)} {...getDocLimits("digitalRationCard", documentMasterData)} />
               </div>
             </div>
           )}

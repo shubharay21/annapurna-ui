@@ -38,6 +38,7 @@ interface Props {
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
 import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 import IfscSearch from "./IfscSearch";
 import FileUpload from "@/components/form/FileUpload";
 
@@ -52,6 +53,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
   
   // Load local bank IFSC master data
   const { data: bankData, loading: isFetchingBank } = useMasterData("bank-ifsc-master.json");
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   useEffect(() => {
     if (member.ifscCode && member.ifscCode.length === 11) {
@@ -164,7 +166,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
           </div>
           {member.socialCategory && member.socialCategory !== "UR" && (
             <div>
-              <FileUpload label={t("Upload Caste / EWS Certificate")} value={getDoc("casteCertificate")} onChange={(f) => handleDocChange("casteCertificate", f)} />
+              <FileUpload label={t("Upload Caste / EWS Certificate")} value={getDoc("casteCertificate")} onChange={(f) => handleDocChange("casteCertificate", f)} {...getDocLimits("casteCertificate", documentMasterData)} />
             </div>
           )}
 
@@ -184,7 +186,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
             <input data-testid="member-aadhaar" type="text" className={inputCls} disabled={member.aadhaarNo === "N/A"} value={member.aadhaarNo} maxLength={12} onChange={e => updateMember(activeTab, "aadhaarNo", e.target.value.replace(/\D/g, ""))} />
           </div>
           <div>
-            <FileUpload label={t("Upload Aadhaar Document")} value={getDoc("aadhaar")} onChange={(f) => handleDocChange("aadhaar", f)} />
+            <FileUpload label={t("Upload Aadhaar Document")} value={getDoc("aadhaar")} onChange={(f) => handleDocChange("aadhaar", f)} {...getDocLimits("aadhaar", documentMasterData)} />
           </div>
           {member.isHoF && (
             <div>
@@ -205,7 +207,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
             <input type="text" className={inputCls} value={member.epicNo || ""} onChange={e => updateMember(activeTab, "epicNo", e.target.value.replace(/[^a-zA-Z0-9]/g, ""))} />
           </div>
           <div>
-            <FileUpload label={t("Upload EPIC Document")} value={getDoc("epic")} onChange={(f) => handleDocChange("epic", f)} />
+            <FileUpload label={t("Upload EPIC Document")} value={getDoc("epic")} onChange={(f) => handleDocChange("epic", f)} {...getDocLimits("epic", documentMasterData)} />
           </div>
           <div>
             <label className={labelCls}>{t("Assembly Constituency No.")}</label>
@@ -250,7 +252,7 @@ export default function MemberBasicSection({ member, activeTab, updateMember, fa
             />
           </div>
           <div className="md:col-span-2">
-            <FileUpload label={t("Upload Bank Passbook / Document")} value={getDoc("bankAccount")} onChange={(f) => handleDocChange("bankAccount", f)} />
+            <FileUpload label={t("Upload Bank Passbook / Document")} value={getDoc("bankAccount")} onChange={(f) => handleDocChange("bankAccount", f)} {...getDocLimits("bankAccount", documentMasterData)} />
           </div>
         </div>
       </section>

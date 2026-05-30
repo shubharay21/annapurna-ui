@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
@@ -37,6 +39,7 @@ interface Props {
 
 export default function MemberAssetsSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   const handleDocChange = (docName: string, file: File | null) => {
     const currentDocs = (member.documents as any) || {};
@@ -146,7 +149,7 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
                 />
               </div>
               <div className="mt-4 md:col-span-2">
-                <FileUpload label={t("Upload Land Documents")} value={getDoc("landDocuments")} onChange={(f) => handleDocChange("landDocuments", f)} />
+                <FileUpload label={t("Upload Land Documents")} value={getDoc("landDocuments")} onChange={(f) => handleDocChange("landDocuments", f)} {...getDocLimits("landDocuments", documentMasterData)} />
               </div>
             </div>
           )}
@@ -240,7 +243,7 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
                 <input type="number" className={inputCls} value={member.healthInsuranceAnnualPremium || ""} onChange={e => updateMember(activeTab, "healthInsuranceAnnualPremium", parseFloat(e.target.value) || null)} />
               </div>
               <div className="md:col-span-2">
-                <FileUpload label={t("Upload Health Insurance Document (including Swasthya Sathi, Ayushman Bharat)")} value={getDoc("healthInsurance")} onChange={(f) => handleDocChange("healthInsurance", f)} />
+                <FileUpload label={t("Upload Health Insurance Document (including Swasthya Sathi, Ayushman Bharat)")} value={getDoc("healthInsurance")} onChange={(f) => handleDocChange("healthInsurance", f)} {...getDocLimits("healthInsurance", documentMasterData)} />
               </div>
             </>
           )}
@@ -265,7 +268,7 @@ export default function MemberAssetsSection({ member, activeTab, updateMember }:
                   <input type="text" className={inputCls} value={member.vaccinationCardId || ""} onChange={e => updateMember(activeTab, "vaccinationCardId", e.target.value)} />
                 </div>
                 <div className="md:col-span-2">
-                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} />
+                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} {...getDocLimits("vaccinationCard", documentMasterData)} />
                 </div>
               </>
             )}

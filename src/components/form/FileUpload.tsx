@@ -7,7 +7,8 @@ export interface FileUploadProps {
   id?: string;
   label?: string;
   accept?: string;
-  maxSizeMB?: number;
+  minSizeKB?: number;
+  maxSizeKB?: number;
   value?: File | null;
   onChange?: (file: File | null) => void;
   error?: string;
@@ -19,7 +20,8 @@ export default function FileUpload({
   id,
   label,
   accept = ".pdf,.jpg,.jpeg,.png",
-  maxSizeMB = 2,
+  minSizeKB = 10,
+  maxSizeKB = 2048,
   value = null,
   onChange,
   error,
@@ -51,9 +53,13 @@ export default function FileUpload({
     if (!file) return;
 
     // Check size
-    const sizeInMB = file.size / (1024 * 1024);
-    if (sizeInMB > maxSizeMB) {
-      alert(`File is too large. Maximum size is ${maxSizeMB}MB.`);
+    const sizeInKB = file.size / 1024;
+    if (sizeInKB > maxSizeKB) {
+      alert(`File is too large. Maximum size is ${maxSizeKB >= 1024 ? maxSizeKB / 1024 + 'MB' : maxSizeKB + 'KB'}.`);
+      return;
+    }
+    if (sizeInKB < minSizeKB) {
+      alert(`File is too small. Minimum size is ${minSizeKB}KB.`);
       return;
     }
 
@@ -134,7 +140,7 @@ export default function FileUpload({
               Click or drag to upload
             </p>
             <p className="text-xs text-on-surface-variant">
-              {accept.replace(/\./g, '').toUpperCase().replace(/,/g, ', ')} (Max {maxSizeMB}MB)
+              {accept.replace(/\./g, '').toUpperCase().replace(/,/g, ', ')} (Min {minSizeKB}KB, Max {maxSizeKB >= 1024 ? maxSizeKB / 1024 + 'MB' : maxSizeKB + 'KB'})
             </p>
           </div>
         ) : (

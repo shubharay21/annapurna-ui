@@ -75,3 +75,27 @@ export const SECTIONS = [
   { key: "identity", label: "Identity Docs", icon: "badge" },
   { key: "schemes", label: "Govt Schemes", icon: "account_balance" },
 ];
+
+export const DOC_KEY_MAPPING: Record<string, number> = {
+  "aadhaar": 101,
+  "epic": 102,
+  "pan": 103,
+  "bankAccount": 104,
+  "digitalRationCard": 105,
+  "casteCertificate": 106,
+  "healthInsurance": 107,
+  "landDocuments": 108,
+  "vaccinationCard": 109,
+  "sirApplication": 110,
+  "caaApplication": 111,
+  "employmentDocument": 112,
+  "pensionDocument": 113,
+};
+
+export function getDocLimits(key: string, documentMasterData: any[] | null) {
+  if (!documentMasterData || !Array.isArray(documentMasterData)) return {};
+  let docTypeId = DOC_KEY_MAPPING[key];
+  if (key.startsWith('otherSpecificId_')) docTypeId = 114;
+  const doc = documentMasterData.find((d: any) => d.doc_type_id === docTypeId);
+  return doc ? { minSizeKB: doc.minSize, maxSizeKB: doc.maxSize } : {};
+}

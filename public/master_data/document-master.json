@@ -1,0 +1,100 @@
+[
+    {
+        "doc_type_id": 101,
+        "doc_name": "Aadhaar",
+        "minSize": 10,
+        "maxSize": 2048,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 102,
+        "doc_name": "EPIC",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 103,
+        "doc_name": "PAN",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 104,
+        "doc_name": "Bank Account",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 105,
+        "doc_name": "Digital Ration Card",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 106,
+        "doc_name": "Caste Certificate / EWS Certificate",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 107,
+        "doc_name": "Health Insurance Document (Swasthya Sathi, Ayushman Bharat)",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 108,
+        "doc_name": "Land Documents",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 109,
+        "doc_name": "Vaccination Card",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 110,
+        "doc_name": "SIR Application",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 111,
+        "doc_name": "CAA Application",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 112,
+        "doc_name": "Employment Document",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 113,
+        "doc_name": "Pension Document",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    },
+    {
+        "doc_type_id": 114,
+        "doc_name": "Others (KCC / ARD KCC / MJCC / Disability Certificate / Fisherman Registration Card / Others)",
+        "minSize": 10,
+        "maxSize": 25,
+        "extensions": "jpg,jpeg,png,pdf"
+    }
+]

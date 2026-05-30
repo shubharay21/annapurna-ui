@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
@@ -30,6 +32,7 @@ interface Props {
 
 export default function MemberSocialSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   const handleDocChange = (docName: string, file: File | null) => {
     const currentDocs = (member.documents as any) || {};
@@ -131,7 +134,7 @@ export default function MemberSocialSection({ member, activeTab, updateMember }:
                 <label className={labelCls}>{t("Vaccination Card ID")}</label>
                 <input type="text" className={inputCls} value={member.vaccinationCardId || ""} onChange={e => updateMember(activeTab, "vaccinationCardId", e.target.value)} />
                 <div className="mt-4">
-                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} />
+                  <FileUpload label={t("Upload Vaccination Card")} value={getDoc("vaccinationCard")} onChange={(f) => handleDocChange("vaccinationCard", f)} {...getDocLimits("vaccinationCard", documentMasterData)} />
                 </div>
               </div>
             )}

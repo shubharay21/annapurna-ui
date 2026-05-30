@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguage } from "@/app/i18n/LanguageContext";
+import { useMasterData } from "@/hooks/useMasterData";
+import { getDocLimits } from "./constants";
 import FileUpload from "@/components/form/FileUpload";
 
 const inputCls =
@@ -47,6 +49,7 @@ interface Props {
 
 export default function MemberIncomeSection({ member, activeTab, updateMember }: Props) {
   const { t } = useLanguage();
+  const { data: documentMasterData } = useMasterData("document-master.json");
 
   const handleDocChange = (docName: string, file: File | null) => {
     const currentDocs = (member.documents as any) || {};
@@ -116,7 +119,7 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
               <input type="text" className={inputCls} value={member.panNo || ""} onChange={e => updateMember(activeTab, "panNo", e.target.value.toUpperCase())} />
             </div>
             <div className="md:col-span-2">
-              <FileUpload label={t("Upload PAN Document")} value={getDoc("pan")} onChange={(f) => handleDocChange("pan", f)} />
+              <FileUpload label={t("Upload PAN Document")} value={getDoc("pan")} onChange={(f) => handleDocChange("pan", f)} {...getDocLimits("pan", documentMasterData)} />
             </div>
           </div>
         )}
@@ -151,7 +154,7 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
             })}
           </div>
           <div className="mt-6">
-            <FileUpload label={t("Upload Employment Document")} value={getDoc("employmentDocument")} onChange={(f) => handleDocChange("employmentDocument", f)} />
+            <FileUpload label={t("Upload Employment Document")} value={getDoc("employmentDocument")} onChange={(f) => handleDocChange("employmentDocument", f)} {...getDocLimits("employmentDocument", documentMasterData)} />
           </div>
         </div>
 
@@ -232,7 +235,7 @@ export default function MemberIncomeSection({ member, activeTab, updateMember }:
                   <input type="text" className={inputCls} value={member.govtPensionerMemberNo || ""} onChange={e => updateMember(activeTab, "govtPensionerMemberNo", e.target.value)} />
                 </div>
                 <div>
-                  <FileUpload label={t("Upload Pension Document")} value={getDoc("pensionDocument")} onChange={(f) => handleDocChange("pensionDocument", f)} />
+                  <FileUpload label={t("Upload Pension Document")} value={getDoc("pensionDocument")} onChange={(f) => handleDocChange("pensionDocument", f)} {...getDocLimits("pensionDocument", documentMasterData)} />
                 </div>
               </div>
             )}
